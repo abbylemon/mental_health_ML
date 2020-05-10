@@ -1,0 +1,9 @@
+config.py
+.ipynb_checkpoints
+*.csv
+.DS_Store
+*.tgz
+*.tgz.1
+ spark-2.4.5-bin-hadoop2.7/
+ .env
+__pycache__/

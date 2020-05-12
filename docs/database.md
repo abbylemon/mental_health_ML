@@ -10,7 +10,7 @@
 
 ## Table - survey_responses
 
-| Field       | Type | Question | Years Applicable To
+| Field Name      | Type | Question | Years Applicable To
 | :------------- | :----------: | :----------: | :----------: |
 |  `id` | String PK |
 |  `year` | Integer |

@@ -1,8 +1,12 @@
 # Database Structure
 
+* Two tables
+  * survey_responses
+  * demographics
 * Each table will have an id column, which serves as primary key.
 * The demographics table will have a foreign key, which will be used to join with survey_responses table.
 * If survey question is not answered or if some years have additional survey questions that other years don't have, then the value will be saved as null in the database.
+* Ech row will have a year column to distinguish between survey results of different years.
 
 ## Table - survey_responses
 
@@ -74,11 +78,11 @@
 | `discussing_physical_health_has_consequences` | String | Do you think that discussing a physical health issue with your employer would have negative consequences? | 2014, 2016
 | `employer_takes_mental_seriously_as_physical` | String | Do you feel that your employer takes mental health as seriously as physical health? | 2014, 2016
 | `observed_negative_consequences_for_coworkers`| String| Have you heard of or observed negative consequences for coworkers with mental health conditions in your workplace? | 2014, 2016
-| `discussing_mental_health_has_consequences_previous_employer` | String | Do you think that discussing a mental health disorder with previous employers would have negative consequences? | 2016
-| `discussiong_physical_health_has_consequences_previous_employer` | String | Do you think that discussing a physical health issue with previous employers would have negative consequences? | 2016
+| `discussing_mental_has_consequences_previous_employer` | String | Do you think that discussing a mental health disorder with previous employers would have negative consequences? | 2016
+| `discussiong_physical_has_consequences_previous_employer` | String | Do you think that discussing a physical health issue with previous employers would have negative consequences? | 2016
 | `previous_employer_took_mental_seriously_as_physical` | String | Did you feel that your previous employers took mental health as seriously as physical health? | 2016
-| `observed_negative_consequences_for_previous_coworkers` | String | Did you hear of or observe negative consequences for co-workers with mental health issues in your previous workplaces? | 2016
-| `feels_mental_health_hurt_career` | String | Do you feel that being identified as a person with a mental health issue would hurt your career? | 2016
+| `observed_consequences_for_previous_coworkers` | String | Did you hear of or observe negative consequences for co-workers with mental health issues in your previous workplaces? | 2016
+| `feels_mental_health_hurts_career` | String | Do you feel that being identified as a person with a mental health issue would hurt your career? | 2016
 | `thinks_coworkers_view_negatively` | String | Do you think that team members/co-workers would view you more negatively if they knew you suffered from a mental health issue? | 2016
  
 ## Table - demographics

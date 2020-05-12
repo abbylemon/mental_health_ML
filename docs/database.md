@@ -6,7 +6,7 @@
 * Each table will have an id column, which serves as primary key.
 * The demographics table will have a foreign key, which will be used to join with survey_responses table.
 * If survey question is not answered or if some years have additional survey questions that other years don't have, then the value will be saved as null in the database.
-* Ech row will have a year column to distinguish between survey results of different years.
+* Each row will have a year column to distinguish between survey results of different years.
 
 ## Table - survey_responses
 

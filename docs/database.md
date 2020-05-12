@@ -77,7 +77,7 @@
 | `discussing_mental_health_has_consequences` | String | Do you think that discussing a mental health issue with your employer would have negative consequences? | 2014, 2016
 | `discussing_physical_health_has_consequences` | String | Do you think that discussing a physical health issue with your employer would have negative consequences? | 2014, 2016
 | `employer_takes_mental_seriously_as_physical` | String | Do you feel that your employer takes mental health as seriously as physical health? | 2014, 2016
-| `observed_negative_consequences_for_coworkers`| String| Have you heard of or observed negative consequences for coworkers with mental health conditions in your workplace? | 2014, 2016
+| `observed_consequences_for_coworkers`| String| Have you heard of or observed negative consequences for coworkers with mental health conditions in your workplace? | 2014, 2016
 | `discussing_mental_has_consequences_previous_employer` | String | Do you think that discussing a mental health disorder with previous employers would have negative consequences? | 2016
 | `discussiong_physical_has_consequences_previous_employer` | String | Do you think that discussing a physical health issue with previous employers would have negative consequences? | 2016
 | `previous_employer_took_mental_seriously_as_physical` | String | Did you feel that your previous employers took mental health as seriously as physical health? | 2016

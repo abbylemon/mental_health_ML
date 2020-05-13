@@ -10,6 +10,8 @@
 
 ## Table - survey_responses
 
+* 72 columns
+
 | Field Name      | Type | Question | Years Applicable To
 | :------------- | :----------: | :----------: | :----------: |
 |  `id` | String PK |
@@ -86,6 +88,8 @@
 | `thinks_coworkers_view_negatively` | String | Do you think that team members/co-workers would view you more negatively if they knew you suffered from a mental health issue? | 2016
  
 ## Table - demographics
+
+* 9 columns.
 
 | Field       | Type | Question | Years Applicable To
 | :------------- | :----------: | :----------: | :----------: |

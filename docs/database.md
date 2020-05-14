@@ -86,7 +86,7 @@
 | `observed_consequences_for_previous_coworkers` | String | Did you hear of or observe negative consequences for co-workers with mental health issues in your previous workplaces? | 2016
 | `feels_mental_health_hurts_career` | String | Do you feel that being identified as a person with a mental health issue would hurt your career? | 2016
 | `thinks_coworkers_view_negatively` | String | Do you think that team members/co-workers would view you more negatively if they knew you suffered from a mental health issue? | 2016
- 
+
 ## Table - demographics
 
 * 9 columns.
@@ -99,6 +99,4 @@
 | `country_living_in` | String | What country do you live in? | 2014, 2016, 2017, 2018, 2019
 | `race` | String |  What is your race? | 2017, 2018, 2019
 | `country_working_in` | String | What country do you work in? | 2016, 2017, 2018, 2019
-| `work_position` | String | Which of the following best describes your work position? | 2016
 | `works_remotely` | String | Do you work remotely (outside of an office) at least 50% of the time? | 2014, 2016
-| `survey_id` | String FK | survey_responses.id

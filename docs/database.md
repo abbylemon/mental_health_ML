@@ -16,8 +16,8 @@
 | :------------- | :----------: | :----------: | :----------: |
 |  `id` | String PK |
 |  `year` | Integer |
-|  `number_employees` | String | How many employees does your company or organization have? | 2014, 2016, 2017, 2018, 2019
-| `is_tech_company` | Integer | Is your employer primarily a tech company/organization? | 2014, 2016, 2017, 2018, 2019
+|  `number_employees` | Integer | How many employees does your company or organization have? | 2014, 2016, 2017, 2018, 2019
+| `is_tech_company` | Bollean | Is your employer primarily a tech company/organization? | 2014, 2016, 2017, 2018, 2019
 | `employer_provides_mental_health_benefits` | String | Does your employer provide mental health benefits as part of healthcare coverage? | 2014, 2016, 2017, 2018, 2019
 | `knows_options_available` | String | Do you know the options for mental health care available under your employer-provided health coverage? | 2014, 2016, 2017, 2018, 2019
 | `employer_formally_discussed_mental_health` | String | Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)? | 2014, 2016, 2017, 2018, 2019
@@ -26,17 +26,17 @@
 | `level_difficulty_asking_for_leave` | String | If a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave? | 2014, 2016, 2017, 2018, 2019
 | `comfortable_talking_physical_mental_coworkers` | String | Would you feel more comfortable talking to your coworkers about your physical health or your mental health? | 2017, 2018, 2019
 | `comfortable_discussing_with_supervisor` | String | Would you feel comfortable discussing a mental health issue with your direct supervisor(s)? | 2014, 2016, 2017, 2018, 2019
-| `has_discussed_with_employer` | Integer | Have you ever discussed your mental health with your employer? | 2017, 2018, 2019
-| `conversation_with_employer` | String | Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental | 2017, 2018, 2019
+| `has_discussed_with_employer` | Boolean | Have you ever discussed your mental health with your employer? | 2017, 2018, 2019
+| `conversation_with_employer` | Boolean | Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental | 2017, 2018, 2019
 | `comfortable_discussing_with_coworkers` | String | Would you feel comfortable discussing a mental health issue with your coworkers? | 2014, 2016, 2017, 2018, 2019
-| `has_discussed_with_coworkers` | Integer | Have you ever discussed your mental health with coworkers?| 2017, 2018, 2019
+| `has_discussed_with_coworkers` | Boolean | Have you ever discussed your mental health with coworkers?| 2017, 2018, 2019
 | `conversation_with_coworkers` | String | Describe the conversation with coworkers you had about your mental health including their reactions. | 2017, 2018, 2019
-| `had_coworker_discuss_mental_health` | Integer | Have you ever had a coworker discuss their or another coworker's mental health with you? | 2017, 2018, 2019
+| `had_coworker_discuss_mental_health` | Boolean | Have you ever had a coworker discuss their or another coworker's mental health with you? | 2017, 2018, 2019
 | `conversation_coworker_had` | String | Describe the conversation your coworker had with you about their mental health (please do not use names). | 2017, 2018, 2019
 | `employer_physical_health_importance` | Integer | Overall, how much importance does your employer place on physical health?| 2017, 2018, 2019
 | `employer_mental_health_importance` | Integer | Overall, how much importance does your employer place on mental health? | 2017, 2018, 2019
-| `has_previous_employers`| Integer | Do you have previous employers? | 2016, 2017, 2018, 2019
-| `is_previous_employer_tech_company` | Integer | Was your employer primarily a tech company/organization? | 2017, 2018, 2019
+| `has_previous_employers`| Boolean | Do you have previous employers? | 2016, 2017, 2018, 2019
+| `is_previous_employer_tech_company` | Boolean | Was your employer primarily a tech company/organization? | 2017, 2018, 2019
 | `previous_employer_provided_mental_health_benefits` | String | Have your previous employers provided mental health benefits? | 2016, 2017, 2018, 2019
 | `aware_options_from_previous_employer` | String | Were you aware of the options for mental health care provided by your previous employers? | 2016, 2017, 2018, 2019
 | `previous_employer_formally_discussed_mental_health` | String | Did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)? | 2016, 2017, 2018, 2019
@@ -44,19 +44,19 @@
 | `is_anonymity_protected_by_previous_employer` | String | Was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers? | 2016, 2017, 2018, 2019
 | `comfortable_talking_physical_mental_previous_employer` | String | Would you have felt more comfortable talking to your previous employer about your physical health or your mental health? | 2017, 2018, 2019
 | `comfortable_discussing_with_previous_supervisor` | String | Would you have been willing to discuss your mental health with your direct supervisor(s)? | 2016, 2017, 2018, 2019
-| `has_discussed_with_previous_employer` | Integer | Did you ever discuss your mental health with your previous employer? | 2017, 2018, 2019
+| `has_discussed_with_previous_employer` | Boolean | Did you ever discuss your mental health with your previous employer? | 2017, 2018, 2019
 | `conversation_with_previous_employer` | String | Describe the conversation you had with your previous employer about your mental health, including their reactions and actions taken to address your mental | 2017, 2018, 2019
 | `willing_discuss_with_previous_coworkers` | String | Would you have been willing to discuss your mental health with your coworkers at previous employers? | 2016, 2017, 2018, 2019
-| `has_discussed_with_previous_coworkers` | Integer | Did you ever discuss your mental health with a previous coworker(s)? | 2017, 2018, 2019
+| `has_discussed_with_previous_coworkers` | Boolean | Did you ever discuss your mental health with a previous coworker(s)? | 2017, 2018, 2019
 | `conversation_with_previous_coworkers` | String | Describe the conversation you had with your previous coworkers about your mental health including their reactions. | 2017, 2018, 2019
-| `had_previous_coworker_discuss_mental_health` | Integer | Did you ever have a previous coworker discuss their or another coworker's mental health with you? | 2017, 2018, 2019
+| `had_previous_coworker_discuss_mental_health` | Boolean | Did you ever have a previous coworker discuss their or another coworker's mental health with you? | 2017, 2018, 2019
 | `conversation_previous_coworker_had` | String | Describe the conversation your coworker had with you about their mental health (please do not use names). | 2017, 2018, 2019
 | `previous_employer_physical_health_importance` | Integer | Overall, how much importance did your previous employer place on physical health? | 2017, 2018, 2019
 | `previous_employer_mental_health_importance` | Integer | Overall, how much importance did your previous employer place on mental health? | 2017, 2018, 2019
 | `currently_has_mental_health_disorder` | String | Do you currently have a mental health disorder? | 2016, 2017, 2018, 2019
 | `has_been_diagnosed` | String | Have you ever been diagnosed with a mental health disorder? | 2016, 2017, 2018, 2019
 | `had_disorder_in_past` | String | Have you had a mental health disorder in the past? | 2016, 2017, 2018,2019
-| `sought_treatment_for_mental_health` | Integer | Have you ever sought treatment for a mental health disorder from a mental health professional? | 2014, 2016, 2017, 2018, 2019
+| `sought_treatment_for_mental_health` | Boolean | Have you ever sought treatment for a mental health disorder from a mental health professional? | 2014, 2016, 2017, 2018, 2019
 | `has_family_history` | String | Do you have a family history of mental illness? | 2014, 2016, 2017, 2018, 2019
 | `interferes_with_work` | String | If you have a mental health condition, do you feel that it interferes with your work? | 2014
 | `interferes_with_work_treated` | String | If you have a mental health disorder, how often do you feel that it interferes with your work when being treated effectively? | 2016, 2017, 2018, 2019

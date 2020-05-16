@@ -17,7 +17,7 @@
 |  `id` | String PK |
 |  `year` | Integer |
 |  `number_employees` | Integer | How many employees does your company or organization have? | 2014, 2016, 2017, 2018, 2019
-| `is_tech_company` | Bollean | Is your employer primarily a tech company/organization? | 2014, 2016, 2017, 2018, 2019
+| `is_tech_company` | Boolean | Is your employer primarily a tech company/organization? | 2014, 2016, 2017, 2018, 2019
 | `employer_provides_mental_health_benefits` | String | Does your employer provide mental health benefits as part of healthcare coverage? | 2014, 2016, 2017, 2018, 2019
 | `knows_options_available` | String | Do you know the options for mental health care available under your employer-provided health coverage? | 2014, 2016, 2017, 2018, 2019
 | `employer_formally_discussed_mental_health` | String | Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)? | 2014, 2016, 2017, 2018, 2019

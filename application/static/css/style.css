@@ -1,0 +1,65 @@
+#main {
+  color: #000000;
+  border: solid #001f3f 2px;
+  border-radius: 3px;
+}
+
+.github-side-icon {
+  position: absolute;
+  z-index: 3;
+  top: 100px;
+  right: 35px;
+  cursor: pointer;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  --accent-color: #d0d066;
+  --background-color: #333;
+  --text-color: white;
+  --button-text-color: var(--background-color);
+  --transition-delay: 1s;
+  transition: var(--transition-delay);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.container {
+  flex: 1;
+}
+
+.card-footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+body.light {
+  --accent-color: orangered;
+  --background-color: white;
+  --text-color: #333;
+  --button-text-color: white;
+}
+
+.theme-toggle-button {
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  border: none;
+  outline: none;
+  transition: var(--transition-delay);
+  transform: scale(1);
+}
+
+.theme-toggle-button:hover,
+.theme-toggle-button:focus {
+  transform: scale(1.1);
+}

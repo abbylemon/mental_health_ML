@@ -1,0 +1,63 @@
+{% extends 'layout.html' %} {% block body %}
+
+<h1>Predict</h1>
+<p>Use the form below to predict mental health coverage</p>
+
+<div class="row">
+  <div class="col-md-12" id="summary-text">
+    <h3>Form</h3>
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-7">
+          <label for="input1">Age</label>
+          <input class="form-control" id="input1" />
+        </div>
+        <div class="form-group col-md-7">
+          <label for="select1">Gender</label>
+          <select id="select1" class="form-control">
+            <option selected></option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div class="form-group col-md-7">
+          <label for="select2">Race/Ethnicity</label>
+          <select id="select2" class="form-control">
+            <option selected></option>
+            <option>White</option>
+            <option>Black or African American</option>
+            <option>Hispanic or Latino</option>
+            <option>Asian</option>
+            <option>Native Hawaiian or other Pacific Islander</option>
+            <option>American Indian or Alaska Native</option>
+            <option>Two or more Races</option>
+          </select>
+        </div>
+        <div class="form-group col-md-7">
+          <label for="select3">Is your employer primarily a tech company/organization?</label>
+          <select id="select3" class="form-control">
+            <option selected></option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+        <div class="form-group col-md-7">
+          <label for="select4">How many employees does your company have?</label>
+          <select id="select4" class="form-control">
+            <option selected></option>
+            <option>1 to 5</option>
+            <option>6 to 25</option>
+            <option>26 to 100</option>
+            <option>100 to 500</option>
+            <option>500 to 1000</option>
+            <option>More than 1000</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-dark">Run</button>
+    </form>
+    <hr />
+    <h3>Results</h3>
+  </div>
+</div>
+{% endblock %}

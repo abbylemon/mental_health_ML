@@ -55,6 +55,11 @@ def home_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("landing.html", data=data)
 
+@app.route("/team")
+def team_page():
+    data = {'api_base_url': f'{api_base_url}{api_version}'}
+    return render_template("team.html", data=data)
+
 
 @app.route("/overview")
 def overview_page():
@@ -85,11 +90,20 @@ def etl_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("etl.html", data=data)
 
-
 @app.route(f"/api")
 def api_docs():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("api.html", data=data)
+
+@app.route(f"/nlp")
+def nlp_page():
+    data = {'api_base_url': f'{api_base_url}{api_version}'}
+    return render_template("nlp.html", data=data)
+
+@app.route(f"/visualizations")
+def visualizations_page():
+    data = {'api_base_url': f'{api_base_url}{api_version}'}
+    return render_template("visualizations.html", data=data)
 
 
 if __name__ == "__main__":

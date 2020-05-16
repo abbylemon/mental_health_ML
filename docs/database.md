@@ -17,7 +17,7 @@
 |  `id` | String PK |
 |  `year` | Integer |
 |  `number_employees` | Integer | How many employees does your company or organization have? | 2014, 2016, 2017, 2018, 2019
-| `is_tech_company` | Bollean | Is your employer primarily a tech company/organization? | 2014, 2016, 2017, 2018, 2019
+| `is_tech_company` | Boolean | Is your employer primarily a tech company/organization? | 2014, 2016, 2017, 2018, 2019
 | `employer_provides_mental_health_benefits` | String | Does your employer provide mental health benefits as part of healthcare coverage? | 2014, 2016, 2017, 2018, 2019
 | `knows_options_available` | String | Do you know the options for mental health care available under your employer-provided health coverage? | 2014, 2016, 2017, 2018, 2019
 | `employer_formally_discussed_mental_health` | String | Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)? | 2014, 2016, 2017, 2018, 2019
@@ -81,7 +81,7 @@
 | `employer_takes_mental_seriously_as_physical` | String | Do you feel that your employer takes mental health as seriously as physical health? | 2014, 2016
 | `observed_consequences_for_coworkers`| String| Have you heard of or observed negative consequences for coworkers with mental health conditions in your workplace? | 2014, 2016
 | `discussing_mental_has_consequences_previous_employer` | String | Do you think that discussing a mental health disorder with previous employers would have negative consequences? | 2016
-| `discussiong_physical_has_consequences_previous_employer` | String | Do you think that discussing a physical health issue with previous employers would have negative consequences? | 2016
+| `discussing_physical_has_consequences_previous_employer` | String | Do you think that discussing a physical health issue with previous employers would have negative consequences? | 2016
 | `previous_employer_took_mental_seriously_as_physical` | String | Did you feel that your previous employers took mental health as seriously as physical health? | 2016
 | `observed_consequences_for_previous_coworkers` | String | Did you hear of or observe negative consequences for co-workers with mental health issues in your previous workplaces? | 2016
 | `feels_mental_health_hurts_career` | String | Do you feel that being identified as a person with a mental health issue would hurt your career? | 2016

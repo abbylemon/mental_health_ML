@@ -11,6 +11,7 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
+from pprint import pprint
 
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT
@@ -28,6 +29,7 @@ api_base_url = os.environ.get(
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['JSON_SORT_KEYS'] = False
 
 if is_prod:
     app.debug = False
@@ -46,9 +48,7 @@ engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
-survey_responses = Base.classes.survey_responses
-print(Base.classes.keys())
-
+Survey = Base.classes.survey_responses
 
 @app.route("/")
 def home_page():
@@ -60,30 +60,25 @@ def team_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("team.html", data=data)
 
-
 @app.route("/overview")
 def overview_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("index.html", data=data)
-
 
 @app.route("/machine-learning")
 def machine_learning_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("machine2.html", data=data)
 
-
 @app.route("/predict")
 def form_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("predict.html", data=data)
 
-
 @app.route("/data")
 def data_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("data.html", data=data)
-
 
 @app.route("/etl")
 def etl_page():
@@ -104,6 +99,50 @@ def nlp_page():
 def visualizations_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("visualizations.html", data=data)
+
+@app.route(f"/api/{api_version}/surveys", methods=['GET'])
+@cross_origin()
+def surveys():
+    session = Session(engine)
+
+    surveys = session.query(
+      Survey.id,
+      Survey.year,
+      Survey.number_employees,
+      Survey.employer_provides_mental_health_benefits,
+      Survey.employer_formally_discussed_mental_health,
+      Survey.employer_mental_health_importance,
+      Survey.sought_treatment_for_mental_health,
+      Survey.mental_health_in_interview,
+      Survey.employer_offers_resources,
+      Survey.is_anonymity_protected_by_employer,
+      Survey.level_difficulty_asking_for_leave,
+      Survey.currently_has_mental_health_disorder,
+      Survey.interferes_with_work_treated).limit(100)
+
+    session.close()
+
+    output = []
+
+    for survey in surveys:
+      survey_dict = {}
+      output.append({
+        "id": survey[0],
+        "year": survey[1],
+        "number_employees": survey[2],
+        "employer_provides_mental_health_benefits": survey[3],
+        "employer_formally_discussed_mental_health": survey[4],
+        "employer_mental_health_importance": survey[5],
+        "sought_treatment_for_mental_health": survey[6],
+        "mental_health_in_interview": survey[7],
+        "employer_offers_resources": survey[8],
+        "is_anonymity_protected_by_employer": survey[9],
+        "level_difficulty_asking_for_leave": survey[10],
+        "currently_has_mental_health_disorder": survey[11],
+        "interferes_with_work_treated": survey[12]
+      })
+
+    return jsonify({ 'result': output })
 
 
 if __name__ == "__main__":

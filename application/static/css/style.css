@@ -90,10 +90,6 @@ body.light {
   padding: 5px 10px;
 }
 
-.social-link {
-  color: var(--accent-color);
-}
-
 .social-link:hover {
   color: var(--background-color)
 }
@@ -104,4 +100,28 @@ body.light {
 
 .nav-link:hover {
   color: var(--accent-color) !important;
+}
+
+.etl-row {
+  width: 70% !important;
+}
+
+.etl-step{
+  font-size: 80px;
+}
+
+.page-title {
+  font-size: 45px;
+}
+
+a, .table-head, .etl-step-title, .etl-step, .social-link{
+  color: var(--accent-color) !important;
+}
+
+.table-header-row, tbody {
+  border-top: 2px solid var(--accent-color);
+}
+
+td {
+  border-top: 1px solid var(--accent-color) !important;
 }

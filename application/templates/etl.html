@@ -1,0 +1,83 @@
+{% extends 'layout.html' %} {% block body %}
+
+<h1 class="text-center page-title">Performing ETL</h1>
+
+<div class="row justify-content-center mt-4 mb-4">
+
+  <div class="row etl-row mt-5">
+    <div class="col-md-2">
+      <h1 class="etl-step">1.</h1>
+    </div>
+    <div class="col-md-10">
+      <h2 class="etl-step-title">Extract</h2>
+      <p>
+        The data used for this project comes from the OSMI (Open Sourcing Mental Illness) Mental Health in Tech Survey,
+        which is an annual survey that captures employees' attitudes toward mental health in the workplace. OSMI is a
+        non-profit organization that helps support and raise awareness for mental health in the tech community. This
+        survey that OSMI puts out every year is specifically intended for employees within the tech industry.
+        OSMI
+        publishes the survey results on
+        <a href="https://osmihelp.org/research" target="_blank">their website</a>. The raw csv files are available
+        on <a href="https://www.kaggle.com/osmihelp/osmi-mental-health-in-tech-survey-2019" target="_blank">kaggle</a>.
+        For this project, we took the raw csv files and uploaded them to an AWS S3 bucket. Then, using Google Colab and
+        Pandas, we loaded the csv files from S3 into Pandas dataframes to be able to transform the data.
+      </p>
+    </div>
+  </div>
+
+  <div class="row etl-row mt-5">
+    <div class="col-md-2">
+      <h1 class="etl-step">2.</h1>
+    </div>
+    <div class="col-md-10">
+      <h2 class="etl-step-title">Transform</h2>
+      <p>
+        All of the data transformation steps for this project took place within Google Colab, which is a notebook that
+        is similar to Jupyter Notebook but is different as Google Colab executes code on Google's cloud servers. We
+        chose to use Google Colab over Jupyter Notebook because Google Colab allowed us to collaborate
+        on the same notebook in real time without having to deal with pushing to git and dealing with merge
+        conflicts, which is often the case when trying to work collaboratively with Jupyter Notebook.
+      </p>
+
+      <p>
+        One challenge we faced when cleaning the data was figuring out which columns to keep and remove.
+        The original csv files included over 100 columns, one for each survey question. As a result, we removed the
+        columns that were not valuable for this project (for example, columns related to what state a person lives and
+        works in is not needed because the survey results already categorized people by geographic region). After
+        figuring out what columns to keep, we also spent time changing the names of the columns because the column names
+        in the raw csv files are the actual question (for example, "Have you ever sought treatment for a mental health
+        disorder from a mental health professional?""). To make loading and quering the database easier, we chose to
+        standardize the column names to be snake case and all lower case (for example,
+        sought_treatment_for_mental_health).
+      </p>
+
+      <p>
+        After that, because this project uses a SQL database, the rest of the data transformation involved cleaning the
+        data to match the schema by making sure the colums were the right type. The main challenge here is that some
+        survey questions were skipped or unanswered. If a survey question was not answered or if some years had
+        additional survey questions that other years did not have, then we chose to save the value as
+        null in the database.
+      </p>
+    </div>
+  </div>
+
+  <div class="row etl-row mt-5">
+    <div class="col-md-2">
+      <h1 class="etl-step">3.</h1>
+    </div>
+    <div class="col-md-10">
+      <h2 class="etl-step-title">Load</h2>
+      <p>
+        Afte transforming the data, the final step in the ETL process was loading the data into SQL. To create the
+        schema, we used SQLAlchemy to define classes to describe what each table looks like and to
+        create the tables. The data for this project is stored in a Postgres database that is hosted and managed on AWS
+        using their
+        Relational Database
+        Service (RDS).
+      </p>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

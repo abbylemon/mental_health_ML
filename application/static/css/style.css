@@ -1,0 +1,158 @@
+#main {
+  color: #000000;
+  border: solid #001f3f 2px;
+  border-radius: 3px;
+}
+
+.github-side-icon {
+  position: absolute;
+  z-index: 3;
+  top: 100px;
+  right: 35px;
+  cursor: pointer;
+  color: var(--accent-color);
+}
+
+.team-side-icon {
+  position: absolute;
+  z-index: 3;
+  top: 180px;
+  right: 35px;
+  cursor: pointer;
+  color: var(--accent-color);
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  --accent-color: #d0d066;
+  --background-color: #333;
+  --text-color: white;
+  --button-text-color: var(--background-color);
+  --transition-delay: 1s;
+  transition: var(--transition-delay);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.container {
+  flex: 1;
+}
+
+.card-footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+body.light {
+  --accent-color: orangered;
+  --background-color: white;
+  --text-color: #333;
+  --button-text-color: white;
+}
+
+.theme-toggle-button {
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  border: none;
+  outline: none;
+  transition: var(--transition-delay);
+  transform: scale(1);
+}
+
+.theme-toggle-button:hover,
+.theme-toggle-button:focus {
+  transform: scale(1.1);
+}
+
+.team-card {
+  font-family: 'Arial', sans-serif;
+  background: #f4f4f4;
+  width: 500px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 10px;
+  margin-bottom: 15px;
+  border: var(--accent-color) 5px solid;
+  color: #333;
+}
+
+.team-card img {
+  width: 100%;
+}
+
+.team-card button {
+  cursor: pointer;
+  background: var(--accent-color);
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.social-link:hover {
+  color: var(--background-color)
+}
+
+.nav-link {
+  color: #fff !important;
+}
+
+.nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+.etl-row {
+  width: 70% !important;
+}
+
+.etl-step{
+  font-size: 80px;
+}
+
+.page-title {
+  font-size: 45px;
+}
+
+a, .table-head, .etl-step-title, .etl-step, .social-link, .header-title{
+  color: var(--accent-color) !important;
+}
+
+.table-header-row, tbody {
+  border-top: 2px solid var(--accent-color);
+}
+
+td {
+  border-top: 1px solid var(--accent-color) !important;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 130px;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: center;
+}
+
+section h1 {
+  font-size: 4rem;
+}
+
+section p {
+  font-size: 1.5rem;
+}
+
+

@@ -25,13 +25,23 @@ This project uses a SQL database hosted on AWS to store the mental health survey
 The API and frontend for this project are built using flask. To start the flask application locally:
 
 1. Change directory to the **application** folder in this repository.
-2. Run the following command to start the flask server on port 5000.
+2. In the **application** folder, create a file called **config.py** that includes the following contents:
+
+```bash
+DB_USERNAME = 'username'
+DB_PASSWORD = 'password'
+DB_ENDPOINT = 'endpoint'
+```
+
+Replace username, password, and endpoint with their actual values.
+
+3. Run the following command to start the flask server on port 5000.
 
 ```bash
 python app.py
 ```
 
-3. Navigate to <http:localhost:5000> in Chrome (or whatever browser you prefer) to view the app.
+4. Navigate to <http:localhost:5000> in Chrome (or whatever browser you prefer) to view the app.
 
 ## Using the pgAdmin app to view and query the database locally
 

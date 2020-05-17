@@ -11,7 +11,6 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from pprint import pprint
 
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT

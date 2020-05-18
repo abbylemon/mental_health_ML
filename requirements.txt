@@ -16,3 +16,4 @@ dnspython
 flask_cors
 flask_sqlalchemy
 sqlalchemy
+vaderSentiment

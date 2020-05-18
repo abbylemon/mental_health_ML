@@ -27,7 +27,7 @@
 | `comfortable_talking_physical_mental_coworkers` | String | Would you feel more comfortable talking to your coworkers about your physical health or your mental health? | 2017, 2018, 2019
 | `comfortable_discussing_with_supervisor` | String | Would you feel comfortable discussing a mental health issue with your direct supervisor(s)? | 2014, 2016, 2017, 2018, 2019
 | `has_discussed_with_employer` | Boolean | Have you ever discussed your mental health with your employer? | 2017, 2018, 2019
-| `conversation_with_employer` | Boolean | Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental | 2017, 2018, 2019
+| `conversation_with_employer` | String | Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental | 2017, 2018, 2019
 | `comfortable_discussing_with_coworkers` | String | Would you feel comfortable discussing a mental health issue with your coworkers? | 2014, 2016, 2017, 2018, 2019
 | `has_discussed_with_coworkers` | Boolean | Have you ever discussed your mental health with coworkers?| 2017, 2018, 2019
 | `conversation_with_coworkers` | String | Describe the conversation with coworkers you had about your mental health including their reactions. | 2017, 2018, 2019

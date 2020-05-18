@@ -90,7 +90,7 @@ def etl_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("etl.html", data=data)
 
-@app.route(f"/api")
+@app.route(f"/api/docs")
 def api_docs():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("api.html", data=data)
@@ -123,7 +123,7 @@ def surveys():
       Survey.is_anonymity_protected_by_employer,
       Survey.level_difficulty_asking_for_leave,
       Survey.currently_has_mental_health_disorder,
-      Survey.interferes_with_work_treated).limit(300)
+      Survey.interferes_with_work_treated).limit(100)
 
     session.close()
 
@@ -173,7 +173,7 @@ def submit():
 def sentiment_scores():
   session = Session(engine)
 
-  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).limit(50)
+  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).limit(150)
 
   session.close()
 

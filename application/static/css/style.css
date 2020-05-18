@@ -161,11 +161,11 @@ section p {
 }
 
 .message {
-	text-align: center;
-	padding: 5px;
+  text-align: center;
+  padding: 5px;
   padding-bottom: 0px;
-	border: #ccc dotted 2px;
-	margin-top: 2rem;
+  border: #ccc dotted 2px;
+  margin-top: 2rem;
 }
 
 

@@ -25,7 +25,6 @@ const sentimentScoresTableBody = sentimentScoresTable.select('tbody');
 const sentimentScoresTableHeaderRow = sentimentScoresTable.select('.table-header-row')
 
 d3.json(sentiment_scores_url).then(data => {
-  console.log(data)
   data.result.forEach(item => {
     let newRow = sentimentScoresTableBody.append('tr');
 

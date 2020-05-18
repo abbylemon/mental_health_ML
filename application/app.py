@@ -11,6 +11,8 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+analyser = SentimentIntensityAnalyzer()
 
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT
@@ -48,6 +50,10 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 Survey = Base.classes.survey_responses
+
+def sentiment_analyzer_scores(sentence):
+    score = analyser.polarity_scores(sentence)
+    return score
 
 @app.route("/")
 def home_page():
@@ -117,7 +123,7 @@ def surveys():
       Survey.is_anonymity_protected_by_employer,
       Survey.level_difficulty_asking_for_leave,
       Survey.currently_has_mental_health_disorder,
-      Survey.interferes_with_work_treated).limit(100)
+      Survey.interferes_with_work_treated).limit(300)
 
     session.close()
 
@@ -142,6 +148,75 @@ def surveys():
       })
 
     return jsonify({ 'result': output })
+
+@app.route('/nlp', methods=['POST'])
+@cross_origin()
+def submit():
+  if request.method == 'POST':
+    comments = request.form['comments']
+    if comments == '':
+      return render_template(
+        'nlp.html',
+        message='Need to enter at least one word to perform sentiment analysis.',
+        data = {'api_base_url': f'{api_base_url}{api_version}'}
+      )
+
+    score = sentiment_analyzer_scores(comments)
+    return render_template(
+      'nlp.html',
+      data = {'api_base_url': f'{api_base_url}{api_version}'},
+      score = score
+      )
+
+@app.route(f"/api/{api_version}/sentiment_scores", methods=['GET'])
+@cross_origin()
+def sentiment_scores():
+  session = Session(engine)
+
+  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).limit(50)
+
+  session.close()
+
+  ids = []
+  years = []
+  conversations = []
+
+  for survey in surveys:
+    if survey[2] != None:
+      ids.append(survey[0])
+      years.append(survey[1])
+      conversations.append(survey[2])
+  
+  output = []
+
+  for index, conversation in enumerate(conversations):
+    positive_score = sentiment_analyzer_scores(conversation)["pos"]
+    negative_score = sentiment_analyzer_scores(conversation)["neg"]
+    neutral_score = sentiment_analyzer_scores(conversation)["neu"]
+    compound_score = sentiment_analyzer_scores(conversation)["compound"]
+
+    if compound_score >= 0.05:
+      conversation_class = 'positive'
+
+    if compound_score <= -0.05:
+      conversation_class = 'negative'
+    
+    if compound_score < 0.05 and compound_score > -0.05:
+      conversation_class = 'neutral'
+
+    survey_dict = {}
+    output.append({
+      "id": ids[index],
+      "year": years[index],
+      "conversation": conversation,
+      "positive": positive_score,
+      "negative": negative_score,
+      "neutral": neutral_score,
+      "compound": compound_score,
+      "conversation_class": conversation_class
+    })
+  
+  return jsonify({ 'result': output })
 
 
 if __name__ == "__main__":

@@ -18,3 +18,21 @@ d3.json(surveys_url).then(data => {
     });
   });
 });
+
+const sentiment_scores_url = `${api_base_url}/sentiment_scores`;
+const sentimentScoresTable = d3.select('#sentiment-scores-table');
+const sentimentScoresTableBody = sentimentScoresTable.select('tbody');
+const sentimentScoresTableHeaderRow = sentimentScoresTable.select('.table-header-row')
+
+d3.json(sentiment_scores_url).then(data => {
+  console.log(data)
+  data.result.forEach(item => {
+    let newRow = sentimentScoresTableBody.append('tr');
+
+    Object.entries(item).forEach(function ([key, value]) {
+      if (key !== 'id') {
+        newRow.append('td').text(value);
+      }
+    });
+  });
+});

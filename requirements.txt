@@ -17,3 +17,5 @@ flask_cors
 flask_sqlalchemy
 sqlalchemy
 vaderSentiment
+flask_swagger_ui
+textblob

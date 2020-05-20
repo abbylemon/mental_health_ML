@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Flask API to access data from the OSMI Mental Health in Tech Survey.",
+    "version": "1.0.0",
+    "title": "Mental Health in Tech API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/v1.0/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Survey Request",
+      "description": "Example API for requesting and returning survey requests."
+    }
+  ],
+  "paths": {
+    "/surveys": {
+      "get": {
+        "tags": [
+          "Survey Request"
+        ],
+        "summary": "Returns survey responses.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/sentiment_scores": {
+      "get": {
+        "tags": [
+          "Sentiment Scores Request"
+        ],
+        "summary": "Returns sentiment scores (positive, negative, neutral) for conversations employees had with their employers.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/nlp": {
+      "post": {
+        "tags": [
+          "VADER Scores Request"
+        ],
+        "summary": "Returns the VADER sentiment analysis score for the comment submitted in the form field.",
+        "requestBody": {
+          "description": "VADER Sentiment Analysis Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vaderSentimentAnalysisPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "vaderSentimentAnalysisPostBody": {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      }
+    }
+  }
+}

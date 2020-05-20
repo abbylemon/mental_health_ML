@@ -5,23 +5,22 @@
   <div class="col-md-12">
     <p class="main">
       The data used for this project comes from the <a href="https://osmihelp.org/research" target="_blank">OSMI Mental
-        Health in Tech survey</a>. This survey is an annual survey used to get information about mental health and how
-      mental
-      health is viewed and perceived by employees within the tech community.
+        Health in Tech survey</a>.  This is an annual survey used to conduct research about mental health, focusing on 
+        measuring attitudes, perceptions, and prevalence within the tech community.
     </p>
     <p>
-      The survey results from 2014-2019 are stored as csv files on <a
+      The survey results from 2014 and 2016-2019 are stored as csv files on <a
         href="https://www.kaggle.com/osmihelp/osmi-mental-health-in-tech-survey-2019" target="_blank">kaggle</a>. For
-      this project, we downloaded the csv files, converted them into dataframes, and loaded them into a Postgres
+      this project, csv files were downloaded, converted into dataframes, and loaded into a Postgres
       database hosted on AWS. For more information on the ETL process, see the <a href="/etl">ETL</a> page.
     </p>
     <p>
-      If a survey question was not answered or if some years have additional survey questions that other years do not
-      have, then the value is saved as null in the database. Each row includes a year column to distinguish between
-      survey results from different years.
+      Values were saved as null in the database if a survey question was not answered, or if a year had additional 
+      questions that other years did not have.  Each row includes a year column to distinguish between survey results from 
+      different years.
     </p>
     <p>
-      To retrieve the survey results from the database, we built an API using Flask and SQLAlchemy. The following table
+      To retrieve the survey results from the database, an API was built using Flask and SQLAlchemy. The following table
       shows a small subset of the data that is currently in the database.
     </p>
     <table class="table table-responsive table-striped mt-5 table-hover table-dark" id="survey-responses-table">

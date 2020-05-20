@@ -11,16 +11,21 @@
     <div class="col-md-10">
       <h2 class="etl-step-title">Extract</h2>
       <p>
-        The data used for this project comes from an annual survey called Mental Health in Tech Survey conducted by 
-        Open Sourcing Mental Illness (OSMI).  OSMI is a non-profit organization that helps support and raise awareness for 
-        mental health in the tech and open source communities.  The survey is specifically intended for those working within 
-        the tech community and is meant to capture attitudes toward mental health in the workplace.  OSMI publishes the results on 
-        <a href="https://osmihelp.org/research" target="_blank">their website</a>, including a link to each survey year's raw csv files, published on 
+        The data used for this project comes from an annual survey called Mental Health in Tech Survey conducted by
+        Open Sourcing Mental Illness (OSMI). OSMI is a non-profit organization that helps support and raise awareness
+        for
+        mental health in the tech and open source communities. The survey is specifically intended for those working
+        within
+        the tech community and is meant to capture attitudes toward mental health in the workplace. OSMI publishes the
+        results on
+        <a href="https://osmihelp.org/research" target="_blank">their website</a>, including a link to each survey
+        year's raw csv files, published
         on <a href="https://www.kaggle.com/osmihelp/osmi-mental-health-in-tech-survey-2019" target="_blank">kaggle</a>.
       </p>
 
       <p>
-        For this project, the raw csv files were uploaded to an AWS S3 bucket. Then, using Google Colab and Pandas, data was loaded 
+        For this project, the raw csv files were uploaded to an AWS S3 bucket. Then, using Google Colab and Pandas, data
+        was loaded
         from S3 into Pandas dataframes for transforming.
       </p>
     </div>
@@ -33,29 +38,39 @@
     <div class="col-md-10">
       <h2 class="etl-step-title">Transform</h2>
       <p>
-        The transformation steps for this project were completed within Google Colab, a notebook that executes code on 
-        Google's cloud servers. Google Colab was chosen, instead of Jupyter Notebook, as it allowed project team members to work simultaneously 
-        on the same notebook, and avoid git merge conflicts that often happen while working collaboratively with Jupyter Notebook.
+        The transformation steps for this project were completed within Google Colab, a notebook that executes code on
+        Google's cloud servers. Google Colab was chosen, instead of Jupyter Notebook, as it allowed project team members
+        to work simultaneously
+        on the same notebook, and avoid git merge conflicts that often happen while working collaboratively with Jupyter
+        Notebook.
       </p>
 
       <p>
-        One challenge the team faced when cleaning the survey data was figuring out which columns to keep and remove.  The original 
-        csv files included over 100 columns, one for each of the Mental Health in Tech Survey questions.  Columns were reviewed and removed 
-        if they were either deemed not necessary or not useful to the project goal.  In the raw csv files, each column is 
-        a survey question (for example, "Have you ever sought treatment for a mental health disorder from a mental health professional?").
-        To make loading and querying the database easier, time was spent changing the names of the columns as well as standardizing the 
+        One challenge the team faced when cleaning the survey data was figuring out which columns to keep and remove.
+        The original
+        csv files included over 100 columns, one for each of the Mental Health in Tech Survey questions. Columns were
+        reviewed and removed
+        if they were either deemed not necessary or not useful to the project goal. In the raw csv files, each column is
+        a survey question (for example, "Have you ever sought treatment for a mental health disorder from a mental
+        health professional?").
+        To make loading and querying the database easier, time was spent changing the names of the columns as well as
+        standardizing the
         format to be snake and lower case (for example, sought_treatment_for_mental_health).
       </p>
 
       <p>
-        Another hurdle while cleaning the data was to capture question changes between years, as the survey has expanded over 
-        time.  Questions were tracked for each survey year and each year’s individual dataframes were edited by 
-        adding new columns for missing questions and re-ordering as needed so that all the years would match up when appended. 
-        Values were saved as null if a survey question was not answered or if a year had additional questions that other years did not have.
+        Another hurdle while cleaning the data was to capture question changes between years, as the survey has expanded
+        over
+        time. Questions were tracked for each survey year and each year’s individual dataframes were edited by
+        adding new columns for missing questions and re-ordering as needed so that all the years would match up when
+        appended.
+        Values were saved as null if a survey question was not answered or if a year had additional questions that other
+        years did not have.
       </p>
 
       <p>
-        Lastly, because this project uses a SQL database, the rest of the data transformation involved ensuring the final dataframe columns 
+        Lastly, because this project uses a SQL database, the rest of the data transformation involved ensuring the
+        final dataframe columns
         and data types matched the schema.
       </p>
     </div>
@@ -68,8 +83,10 @@
     <div class="col-md-10">
       <h2 class="etl-step-title">Load</h2>
       <p>
-        After transforming the data, the final step in the ETL process was loading the data into SQL. SQLAlchemy was used to create the schema, 
-        including defining classes and creating the tables. The data for this project is stored in a Postgres database that is hosted 
+        After transforming the data, the final step in the ETL process was loading the data into SQL. SQLAlchemy was
+        used to create the schema,
+        including defining classes and creating the tables. The data for this project is stored in a Postgres database
+        that is hosted
         and managed on AWS using their Relational Database Service (RDS).
       </p>
     </div>

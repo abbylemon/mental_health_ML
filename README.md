@@ -6,7 +6,7 @@ Using data and machine learning to analyze and improve mental health conversatio
 
 * [Mental Health in Tech App](#app)
 * [Background](#background)
-* [Technologies Used](#technologies-used)
+* [Technologies Used](#technologies_used)
 * [Getting Started](#getting_started)
 * [Database Schema](#database_schema)
 * [API](#api)
@@ -39,14 +39,14 @@ This project looks at different maching learning classification models and compa
 
 ## <a name="getting_started"></a>Getting Started
 
+The following section will take you through the steps of setting up this project and getting it running locally on your computer.
+
+If you don't want to set up this project locally and just want to see the deployed app, go to <https://mental-health-in-tech.herokuapp.com/>.
+
 1. [Clone the repository](#clone-repository)
 2. [Set up AWS and Google Drive](#aws_setup)
 3. [Load csv files from S3 bucket into Pandas dataframes to perform ETL](#cloud_etl)
 4. [Create schema and tables](#create_schema)
-
-The following section will take you through the steps of setting up this project and getting it running locally on your computer.
-
-If you don't want to set up this project locally and just want to see the deployed app, go to <https://mental-health-in-tech.herokuapp.com/>.
 
 ###  <a name="clone-repository"></a> 1. Clone the repository
 The first step is to clone the project repository to a local directory on your computer.

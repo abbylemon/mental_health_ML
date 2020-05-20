@@ -172,4 +172,16 @@ section p {
   font-size: 20px;
 }
 
+.overview-page-navigation {
+  display: flex;
+}
+
+.overview-page-navigation a, .top {
+  background-color: var(--accent-color);
+  color: #333 !important;
+}
+
+.overview-page-navigation a:hover, .top:hover {
+  background-color: #fff !important;
+}
 

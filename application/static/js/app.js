@@ -2,6 +2,14 @@ document.querySelector('.theme-toggle-button').addEventListener('click', () => {
   document.body.classList.toggle('light');
 });
 
+const scroll = new SmoothScroll('.overview-page-navigation a[href*="#"]', {
+  speed: 1100
+});
+
+const topScroll = new SmoothScroll('.top', {
+  speed: 1100
+});
+
 const surveys_url = `${api_base_url}/surveys`;
 const table = d3.select('#survey-responses-table');
 const tableBody = table.select('tbody');

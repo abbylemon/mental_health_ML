@@ -202,7 +202,7 @@ def submit():
 def sentiment_scores():
   session = Session(engine)
 
-  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).limit(50)
+  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).all()
 
   session.close()
 
@@ -218,6 +218,14 @@ def sentiment_scores():
   
   output = []
 
+  number_conversations = len(conversations)
+  number_positive_vader = 0
+  number_neutral_vader = 0
+  number_negative_vader = 0
+  number_positive_textblob = 0
+  number_negative_textblob = 0
+  number_neutral_textblob = 0
+
   for index, conversation in enumerate(conversations):
     positive_score = sentiment_analyzer_scores(conversation)["pos"]
     negative_score = sentiment_analyzer_scores(conversation)["neg"]
@@ -228,21 +236,27 @@ def sentiment_scores():
 
     if compound_score >= 0.05:
       conversation_class_vader = 'positive'
+      number_positive_vader += 1
 
     if compound_score <= -0.05:
       conversation_class_vader = 'negative'
+      number_negative_vader += 1
     
     if compound_score < 0.05 and compound_score > -0.05:
       conversation_class_vader = 'neutral'
+      number_neutral_vader += 1
 
     if textblob_score < 0:
       conversation_class_textblob = 'negative'
+      number_negative_textblob += 1
 
     if textblob_score == 0:
       conversation_class_textblob = 'neutral'
+      number_neutral_textblob += 1
 
     if textblob_score > 0:
       conversation_class_textblob = 'positive'
+      number_positive_textblob += 1
 
     survey_dict = {}
     output.append({
@@ -252,7 +266,13 @@ def sentiment_scores():
       "conversation_class_textblob": conversation_class_textblob,
     })
   
-  return jsonify({ 'result': output })
+  return jsonify({ 'result': output,
+      "number_positive_vader": number_positive_vader,
+      "number_neutral_vader": number_neutral_vader,
+      "number_negative_vader": number_negative_vader,
+      "number_positive_textblob": number_positive_textblob,
+      "number_neutral_textblob": number_neutral_textblob,
+      "number_negative_textblob": number_negative_textblob })
 
 
 if __name__ == "__main__":

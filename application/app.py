@@ -13,6 +13,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 analyser = SentimentIntensityAnalyzer()
+from flask_swagger_ui import get_swaggerui_blueprint
+from textblob import TextBlob
 
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT
@@ -105,6 +107,18 @@ def visualizations_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("visualizations.html", data=data)
 
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+  SWAGGER_URL,
+  API_URL,
+  config={
+    'app_name': 'Mental Health in Tech API'
+  }
+)
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
 @app.route(f"/api/{api_version}/surveys", methods=['GET'])
 @cross_origin()
 def surveys():
@@ -161,19 +175,34 @@ def submit():
         data = {'api_base_url': f'{api_base_url}{api_version}'}
       )
 
-    score = sentiment_analyzer_scores(comments)
-    return render_template(
-      'nlp.html',
-      data = {'api_base_url': f'{api_base_url}{api_version}'},
-      score = score
-      )
+    sentiment_type = request.form['library']
+
+    if sentiment_type == 'vader':
+      vader_score = sentiment_analyzer_scores(comments)
+      return render_template(
+        'nlp.html',
+        data = {'api_base_url': f'{api_base_url}{api_version}'},
+        vader_score = vader_score,
+        textblob_score = None
+        )
+
+    else:
+      blob = TextBlob(comments)
+      textblob_score = blob.sentiment[0]
+      return render_template(
+        'nlp.html',
+        data = {'api_base_url': f'{api_base_url}{api_version}'},
+        textblob_score = textblob_score,
+        vader_score = None
+        )
+
 
 @app.route(f"/api/{api_version}/sentiment_scores", methods=['GET'])
 @cross_origin()
 def sentiment_scores():
   session = Session(engine)
 
-  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).limit(150)
+  surveys = session.query(Survey.id, Survey.year, Survey.conversation_with_employer).limit(50)
 
   session.close()
 
@@ -194,26 +223,33 @@ def sentiment_scores():
     negative_score = sentiment_analyzer_scores(conversation)["neg"]
     neutral_score = sentiment_analyzer_scores(conversation)["neu"]
     compound_score = sentiment_analyzer_scores(conversation)["compound"]
+    blob = TextBlob(conversation)
+    textblob_score = blob.sentiment[0]
 
     if compound_score >= 0.05:
-      conversation_class = 'positive'
+      conversation_class_vader = 'positive'
 
     if compound_score <= -0.05:
-      conversation_class = 'negative'
+      conversation_class_vader = 'negative'
     
     if compound_score < 0.05 and compound_score > -0.05:
-      conversation_class = 'neutral'
+      conversation_class_vader = 'neutral'
+
+    if textblob_score < 0:
+      conversation_class_textblob = 'negative'
+
+    if textblob_score == 0:
+      conversation_class_textblob = 'neutral'
+
+    if textblob_score > 0:
+      conversation_class_textblob = 'positive'
 
     survey_dict = {}
     output.append({
       "id": ids[index],
-      "year": years[index],
       "conversation": conversation,
-      "positive": positive_score,
-      "negative": negative_score,
-      "neutral": neutral_score,
-      "compound": compound_score,
-      "conversation_class": conversation_class
+      "conversation_class_vader": conversation_class_vader,
+      "conversation_class_textblob": conversation_class_textblob,
     })
   
   return jsonify({ 'result': output })

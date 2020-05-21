@@ -19,3 +19,4 @@ sqlalchemy
 vaderSentiment
 flask_swagger_ui
 textblob
+pickle

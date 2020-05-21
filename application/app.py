@@ -19,7 +19,6 @@ import pickle
 import pandas as pd
 import numpy as np
 
-
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT
 except ImportError:
@@ -281,7 +280,7 @@ def sentiment_scores():
       "number_negative_textblob": number_negative_textblob })
 
 
-model_file = "model/ml_model.pkl"
+model_file = "./application/model/ml_model.pkl"
 with open(model_file, 'rb') as file:
   model = pickle.load(file)
 

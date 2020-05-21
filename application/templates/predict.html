@@ -30,7 +30,7 @@
             <option>More than 1000</option>
           </select>
         </div>
-        <div class = "form-group col-md-12">
+        <div class="form-group col-md-12">
           <label for="select3">Do you provide mental health benefits to your employees?</label>
           <select id="select3" class="form-control" name="benefits">
             <option selected></option>
@@ -41,7 +41,8 @@
           </select>
         </div>
         <div class="form-group col-md-12">
-          <label for="select4">Do you offer resources to your employees to learn more about mental health disorders and options for seeking help?</label>
+          <label for="select4">Do you offer resources to your employees to learn more about mental health disorders and
+            options for seeking help?</label>
           <select id="select4" class="form-control" name="resources">
             <option selected></option>
             <option>Yes</option>
@@ -59,7 +60,8 @@
           </select>
         </div>
         <div class="form-group col-md-12">
-          <label for="select6">If an employee takes advantage of mental health resources, would their anonymity be protected by you/the company?</label>
+          <label for="select6">If an employee takes advantage of mental health resources, would their anonymity be
+            protected by you/the company?</label>
           <select id="select6" class="form-control" name="anonymity">
             <option selected></option>
             <option>Yes</option>
@@ -68,7 +70,8 @@
           </select>
         </div>
         <div class="form-group col-md-12">
-          <label for="select7">Have you observed or experienced a supportive or well-handled response to a mental health issue in the workplace?</label>
+          <label for="select7">Have you observed or experienced a supportive or well-handled response to a mental health
+            issue in the workplace?</label>
           <select id="select7" class="form-control" name="supportive">
             <option selected></option>
             <option>I've always been self-employed</option>
@@ -84,10 +87,10 @@
     <hr />
     <h3>Results</h3>
     <div class="row">
-      <div class="col-md-12 mt-3">        
+      <div class="col-md-12 mt-3">
         <h5>The employee has sought mental health treatment?</h5>
         <p><em>Classes are either 0. (False) or 1. (True)</em></p>
-        {% if user_predict %}
+        {% if user_predict != None %}
         <h6><strong>Prediction:</strong></h6>
         <p>{{ user_predict | safe }}</p>
         <h6><strong>Answers:</strong></h6>
@@ -113,7 +116,8 @@
             </tr>
             <tr>
               <td>{{ user_resources | safe}}</td>
-              <td scope="row">Do you offer resources to your employees to learn more about mental health disorders and options for seeking help?</td>
+              <td scope="row">Do you offer resources to your employees to learn more about mental health disorders and
+                options for seeking help?</td>
             </tr>
             <tr>
               <td>{{ user_discussion | safe}}</td>
@@ -121,11 +125,13 @@
             </tr>
             <tr>
               <td>{{ user_anonymity | safe}}</td>
-              <td scope="row">If an employee takes advantage of mental health resources, would their anonymity be protected by you/the company?</td>
+              <td scope="row">If an employee takes advantage of mental health resources, would their anonymity be
+                protected by you/the company?</td>
             </tr>
             <tr>
               <td>{{ user_supportive | safe}}</td>
-              <td scope="row">Have you observed or experienced a supportive or well-handled response to a mental health issue in the workplace?</td>
+              <td scope="row">Have you observed or experienced a supportive or well-handled response to a mental health
+                issue in the workplace?</td>
             </tr>
           </tbody>
         </table>

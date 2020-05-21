@@ -1,24 +1,26 @@
 {% extends 'layout.html' %} {% block body %}
 
 <h1 class="page-title">Predict</h1>
-<p>For employers: use the form below to predict whether your employees would seek mental health treatmeent</p>
 
 <div class="row">
-  <div class="col-md-12" id="summary-text">
-    <h3>Form</h3>
-    <form>
-      <div class="form-row">
-        <div class="form-group col-md-7">
-          <label for="select1">My company is primarily a tech company/orgainization?</label>
-          <select id="select1" class="form-control">
+  <div class="col-md-12 mt-3">
+    <h3>For employers: Use the form below to predict whether your employees would seek mental health treatment</h3>
+    <form class="mt-5" action="/predict" method="POST">
+      <div class="form-group">
+        <div class="form-group col-md-12">
+          {% if form_message %}
+          <p class="message">{{ form_message | safe }}</p>
+          {% endif %}
+          <label for="select1">My company is primarily a tech company/organization?</label>
+          <select id="select1" class="form-control" name="company">
             <option selected></option>
             <option>True</option>
             <option>False</option>
           </select>
         </div>
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-12">
           <label for="select2">How many employees does your company have?</label>
-          <select id="select2" class="form-control">
+          <select id="select2" class="form-control" name="employees">
             <option selected></option>
             <option>1 to 5</option>
             <option>6 to 25</option>
@@ -28,46 +30,46 @@
             <option>More than 1000</option>
           </select>
         </div>
-        <div class = "form-group col-md-7">
+        <div class = "form-group col-md-12">
           <label for="select3">Do you provide mental health benefits to your employees?</label>
-          <select id="select3" class="form-control">
+          <select id="select3" class="form-control" name="benefits">
             <option selected></option>
             <option>Yes</option>
             <option>No</option>
-            <option>I'm not elibile for coverage/NA</option>
+            <option>I'm not eligible for coverage/NA</option>
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-12">
           <label for="select4">Do you offer resources to your employees to learn more about mental health disorders and options for seeking help?</label>
-          <select id="select4" class="form control">
+          <select id="select4" class="form-control" name="resources">
             <option selected></option>
             <option>Yes</option>
             <option>No</option>
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-12">
           <label for="select5">Have you ever formally discussed mental health with your employees?</label>
-          <select id="select5" class="form control">
+          <select id="select5" class="form-control" name="discussion">
             <option selected></option>
             <option>Yes</option>
             <option>No</option>
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-12">
           <label for="select6">If an employee takes advantage of mental health resources, would their anonymity be protected by you/the company?</label>
-          <select id="select6" class="form control">
+          <select id="select6" class="form-control" name="anonymity">
             <option selected></option>
             <option>Yes</option>
             <option>No</option>
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-7">
-          <label for="select7">Have you observed or experienced a supportive or well handled response to a mental health issue in the workplace?</label>
-          <select id="select7" class="form-control">
+        <div class="form-group col-md-12">
+          <label for="select7">Have you observed or experienced a supportive or well-handled response to a mental health issue in the workplace?</label>
+          <select id="select7" class="form-control" name="supportive">
             <option selected></option>
             <option>I've always been self-employed</option>
             <option>No</option>
@@ -77,10 +79,59 @@
           </select>
         </div>
       </div>
-      <button type="submit" class="btn btn-dark">Run</button>
+      <input type="submit" value="Predict" class="btn btn-dark submit-btn" />
     </form>
     <hr />
     <h3>Results</h3>
+    <div class="row">
+      <div class="col-md-12 mt-3">        
+        <h5>The employee has sought mental health treatment?</h5>
+        <p><em>Classes are either 0. (False) or 1. (True)</em></p>
+        {% if user_predict %}
+        <h6><strong>Prediction:</strong></h6>
+        <p>{{ user_predict | safe }}</p>
+        <h6><strong>Answers:</strong></h6>
+        <table class="table table-dark">
+          <thead>
+            <tr class="table-header-row">
+              <th class="table-head">Answer</th>
+              <th class="table-head">Question</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ user_company | safe}}</td>
+              <td scope="row">My company is primarily a tech company/organization?</td>
+            </tr>
+            <tr>
+              <td>{{ user_employees | safe}}</td>
+              <td scope="row">How many employees does your company have?</td>
+            </tr>
+            <tr>
+              <td>{{ user_benefits | safe}}</td>
+              <td scope="row">Do you provide mental health benefits to your employees?</td>
+            </tr>
+            <tr>
+              <td>{{ user_resources | safe}}</td>
+              <td scope="row">Do you offer resources to your employees to learn more about mental health disorders and options for seeking help?</td>
+            </tr>
+            <tr>
+              <td>{{ user_discussion | safe}}</td>
+              <td scope="row">Have you ever formally discussed mental health with your employees?</td>
+            </tr>
+            <tr>
+              <td>{{ user_anonymity | safe}}</td>
+              <td scope="row">If an employee takes advantage of mental health resources, would their anonymity be protected by you/the company?</td>
+            </tr>
+            <tr>
+              <td>{{ user_supportive | safe}}</td>
+              <td scope="row">Have you observed or experienced a supportive or well-handled response to a mental health issue in the workplace?</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

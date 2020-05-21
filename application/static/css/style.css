@@ -185,3 +185,7 @@ section p {
   background-color: #fff !important;
 }
 
+.bold {
+  font-weight: bold;
+}
+

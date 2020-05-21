@@ -183,7 +183,8 @@ def submit():
         'nlp.html',
         data = {'api_base_url': f'{api_base_url}{api_version}'},
         vader_score = vader_score,
-        textblob_score = None
+        textblob_score = None,
+        comments = comments
         )
 
     else:
@@ -193,7 +194,8 @@ def submit():
         'nlp.html',
         data = {'api_base_url': f'{api_base_url}{api_version}'},
         textblob_score = textblob_score,
-        vader_score = None
+        vader_score = None,
+        comments = comments
         )
 
 

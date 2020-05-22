@@ -233,7 +233,6 @@ def sentiment_scores():
   number_negative_textblob = 0
   number_neutral_textblob = 0
 
-
   for index, conversation in enumerate(conversations):
     positive_score = sentiment_analyzer_scores(conversation)["pos"]
     negative_score = sentiment_analyzer_scores(conversation)["neg"]

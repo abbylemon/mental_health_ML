@@ -290,6 +290,7 @@ def nb_classifier():
 
   example = nb_classifier_model.classify("I talked todd my manager about mental health he was very supportive.")
   print(example)
+  print('hello')
 
   return jsonify({
     "nb_classifier": example })

@@ -1,1 +1,0 @@
-textblob.download_corpora

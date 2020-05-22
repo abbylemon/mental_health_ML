@@ -4,10 +4,23 @@
 
 <div class="row">
   <div class="col-md-12 mt-3">
-    <h3>For employers: Use the form below to predict whether your employees would seek mental health treatment</h3>
+    <h5>For employers:</h5>
+    <p>Use the form below to predict whether or not your employees would seek treatment for a mental health condition.
+      When you submit the form, our machine learning model will take your answers and give you one of the following
+      scores:</p>
+    <ul>
+      <li>
+        <b>0</b> - an employee is not likely to seek treatment for a mental health condition.
+      </li>
+      <li>
+        <b>1</b> - an employee is likely to seek treatment for a mental health condition.
+      </li>
+    </ul>
+    <p>For more information about the machine learning model used, see the <a href="/machine-learning">Machine
+        Learning</a> page.</p>
     <form class="mt-5" action="/predict" method="POST">
       <div class="form-group">
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           {% if form_message %}
           <p class="message">{{ form_message | safe }}</p>
           {% endif %}
@@ -18,7 +31,7 @@
             <option>False</option>
           </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           <label for="select2">How many employees does your company have?</label>
           <select id="select2" class="form-control" name="employees">
             <option selected></option>
@@ -30,7 +43,7 @@
             <option>More than 1000</option>
           </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           <label for="select3">Do you provide mental health benefits to your employees?</label>
           <select id="select3" class="form-control" name="benefits">
             <option selected></option>
@@ -40,7 +53,7 @@
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           <label for="select4">Do you offer resources to your employees to learn more about mental health disorders and
             options for seeking help?</label>
           <select id="select4" class="form-control" name="resources">
@@ -50,7 +63,7 @@
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           <label for="select5">Have you ever formally discussed mental health with your employees?</label>
           <select id="select5" class="form-control" name="discussion">
             <option selected></option>
@@ -59,7 +72,7 @@
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           <label for="select6">If an employee takes advantage of mental health resources, would their anonymity be
             protected by you/the company?</label>
           <select id="select6" class="form-control" name="anonymity">
@@ -69,7 +82,7 @@
             <option>I don't know</option>
           </select>
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group mt-4">
           <label for="select7">Have you observed or experienced a supportive or well-handled response to a mental health
             issue in the workplace?</label>
           <select id="select7" class="form-control" name="supportive">
@@ -85,7 +98,7 @@
       <input type="submit" value="Predict" class="btn btn-dark submit-btn" />
     </form>
     <hr />
-    <h3>Results</h3>
+    <h3 class="mt-5">Results</h3>
     <div class="row">
       <div class="col-md-12 mt-3">
         <h5>The employee has sought mental health treatment?</h5>

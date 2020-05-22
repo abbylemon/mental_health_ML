@@ -181,13 +181,111 @@
 </div>
 <div class="row mt-5">
   <div class="col-md-12">
+    <h3 class="header-title">Text Classification Models</h3>
+    <p>After performing a sentiment analysis on the data, we looked at trying to build a few different text
+      classification models that could predict whether or not a conversation about mental health was positive or
+      negative.</p>
+    <p>
+      To try to classify the conversations from the survey, we looked at and compared the following classification
+      models.
+    </p>
+  </div>
+  <div class="col-md-12">
+    <h5>Naive Bayes</h5>
+    <p>
+      The first model we tried to fit our training data to was Naive Bayes. To build this model, we again used TextBlob,
+      which provides built-in classifiers to create a custom classifier. One of those built-in classifiers is Naive
+      Bayes. Naive Bayes is an example of a generative classifier, which is a classifier that builds a model of how a
+      class could generate some input data. This type of classifier gives us the class most likely to have generated a
+      particular observation.
+    </p>
+    <form action="/nb_classifier" method="POST">
+      <div class="form-group mt-5">
+        {% if nb_classifier_message %}
+        <p class="message">{{ nb_classifier_message | safe }}</p>
+        {% endif %}
+        <p>Describe the conversation you had with your employer about your mental health, including their reactions
+          and what actions were taken to address your mental health.</p>
+        <textarea class="form-control" name="nb_classifier_text" rows="3"></textarea>
+      </div>
+      <input type="submit" value="Run Model" class="btn btn-dark submit-btn btn-lg" />
+    </form>
+  </div>
+  {% if classification %}
+  <div class="col-md-12 mt-3">
+    <p>
+      <b>Text</b>: {{ nb_classifier_text | safe }}
+    </p>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ classification | safe }}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Model Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ nb_classifier_accuracy | safe }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Most Informative Features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">
+            <pre class="code">
+              Most Informative Features
+              contains(supportive) = True              pos : neg    =      9.9 : 1.0
+                    contains(sick) = True              neg : pos    =      8.3 : 1.0
+                  contains(suffer) = True              neg : pos    =      5.8 : 1.0
+                contains(brought) = True              neg : pos    =      5.8 : 1.0
+                      contains(an) = True              pos : neg    =      4.7 : 1.0
+                  contains(later) = True              neg : pos    =      4.5 : 1.0
+                contains(thought) = True              neg : pos    =      4.5 : 1.0
+                  contains(which) = True              neg : pos    =      4.5 : 1.0
+                      contains(No) = True              neg : pos    =      4.5 : 1.0
+                    contains(took) = True              neg : pos    =      4.2 : 1.0
+            </pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+<div class="row mt-5">
+  <div class="col-md-12">
     <h5>Word Cloud</h5>
     <p>A word cloud is a good way to see the visual representation of text data. It displays a list of words where the
       importance of each is shown with font size and color. The following word cloud was genereted using the Python <a
         href="https://github.com/amueller/word_cloud" target="_blank">wordcloud</a> library by <a
-        href="https://github.com/amueller" target="_blank">Andreas Mueller</a>. This word cloud visually highlights the
+        href="https://github.com/amueller" target="_blank">Andreas Mueller</a>. This word cloud visually highlights
+      the
       most common words used to describe the mental health conversations employees said they had with
-      their employers. The large the text size, the more such words were used. From this word cloud, we can quickly see
+      their employers. The large the text size, the more such words were used. From this word cloud, we can quickly
+      see
       the positive, negative, and neutral sentiments.</p>
     <img src="../static/images/conversations_word_cloud.png" style="width: 100%" />
   </div>

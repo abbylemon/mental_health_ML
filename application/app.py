@@ -4,6 +4,7 @@ from flask import (
     render_template,
     jsonify,
     request,
+    url_for,
     redirect)
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
@@ -281,16 +282,37 @@ def sentiment_scores():
       "number_neutral_textblob": number_neutral_textblob,
       "number_negative_textblob": number_negative_textblob })
 
-nb_classifier_model_file = "./application/model/nb_classifier3.pkl"
+nb_classifier_model_file = "./application/model/nb_classifier.pkl"
 nb_classifier_model= joblib.load(nb_classifier_model_file)
 
-@app.route(f"/api/{api_version}/nb_classifier", methods=['GET'])
+@app.route("/nb_classifier", methods=['POST'])
 @cross_origin()
 def nb_classifier():
 
-  example = nb_classifier_model.classify("I talked todd my manager about mental health he was very supportive.")
-  print(example)
-  print('hello')
+  if request.method == 'POST':
+    nb_classifier_text = request.form['nb_classifier_text']
+    if nb_classifier_text == '':
+      return render_template(
+        'nlp.html',
+        nb_classifier_message='Need to enter at least one word to perform machine learning classification.',
+        data = {'api_base_url': f'{api_base_url}{api_version}'}
+      )
+
+    classification = nb_classifier_model.classify(nb_classifier_text)
+
+    if classification == 'pos':
+      classification = 'Positive'
+    else:
+      classification = 'Negative'
+
+    redirect(url_for('nlp_page'), code=307)
+    return render_template(
+      'nlp.html',
+      data = {'api_base_url': f'{api_base_url}{api_version}'},
+      classification = classification,
+      nb_classifier_text = nb_classifier_text,
+      nb_classifier_accuracy = 0.7253521126760564
+      )
 
   return jsonify({
     "nb_classifier": example })

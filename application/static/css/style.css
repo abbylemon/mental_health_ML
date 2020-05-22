@@ -100,7 +100,7 @@ body.light {
 }
 
 .social-link:hover {
-  color: var(--background-color)
+  color: var(--background-color) !important;
 }
 
 .nav-link {
@@ -187,5 +187,9 @@ section p {
 
 .bold {
   font-weight: bold;
+}
+
+.classify-form-group {
+  padding-left: 0px !important;
 }
 

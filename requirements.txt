@@ -20,3 +20,4 @@ vaderSentiment
 flask_swagger_ui
 textblob
 sklearn
+joblib

@@ -18,6 +18,7 @@ from textblob import TextBlob
 import pickle
 import pandas as pd
 import numpy as np
+import joblib
 
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT
@@ -231,6 +232,7 @@ def sentiment_scores():
   number_negative_textblob = 0
   number_neutral_textblob = 0
 
+
   for index, conversation in enumerate(conversations):
     positive_score = sentiment_analyzer_scores(conversation)["pos"]
     negative_score = sentiment_analyzer_scores(conversation)["neg"]
@@ -279,6 +281,19 @@ def sentiment_scores():
       "number_neutral_textblob": number_neutral_textblob,
       "number_negative_textblob": number_negative_textblob })
 
+nb_classifier_model_file = "./application/model/nb_classifier3.pkl"
+nb_classifier_model= joblib.load(nb_classifier_model_file)
+
+@app.route(f"/api/{api_version}/nb_classifier", methods=['GET'])
+@cross_origin()
+def nb_classifier():
+
+  example = nb_classifier_model.classify("I talked todd my manager about mental health he was very supportive.")
+  print(example)
+
+  return jsonify({
+    "nb_classifier": example })
+
 
 model_file = "./application/model/ml_model.pkl"
 with open(model_file, 'rb') as file:
@@ -302,7 +317,8 @@ def predict():
       return render_template(
         'predict.html',
         form_message='Please answer the questions to run machine learning model',
-        data = {'api_base_url': f'{api_base_url}{api_version}'}
+        data = {'api_base_url': f'{api_base_url}{api_version}'},
+        user_predict = None
       )
 
     if input_company == 'True':

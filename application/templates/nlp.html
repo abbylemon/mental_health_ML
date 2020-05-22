@@ -181,6 +181,28 @@
 </div>
 <div class="row mt-5">
   <div class="col-md-12">
+    <h3 class="header-title">Text Classification Models</h3>
+    <p>After performing a sentiment analysis on the data, we looked at trying to build a few different text
+      classification models that could predict whether or not a conversation about mental health was positive or
+      negative.</p>
+    <p>
+      To try to classify the conversations from the survey, we looked at and compared the following classification
+      models.
+    </p>
+  </div>
+  <div class="col-md-12">
+    <h5>Naive Bayes</h5>
+    <p>
+      The first model we tried to fit our training data to was Naive Bayes. To build this model, we again used TextBlob,
+      which provides built-in classifiers to create a custom classifier. One of those built-in classifiers is Naive
+      Bayes. Naive Bayes is an example of a generative classifier, which is a classifier that builds a model of how a
+      class could generate some input data. This type of classifier gives us the class most likely to have generated a
+      particular observation.
+    </p>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-md-12">
     <h5>Word Cloud</h5>
     <p>A word cloud is a good way to see the visual representation of text data. It displays a list of words where the
       importance of each is shown with font size and color. The following word cloud was genereted using the Python <a

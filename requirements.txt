@@ -21,3 +21,4 @@ flask_swagger_ui
 textblob
 sklearn
 joblib
+nltk

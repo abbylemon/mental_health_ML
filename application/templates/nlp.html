@@ -152,14 +152,14 @@
     <p><b>Positive sentiment:</b> compound score greater than or equal to 0.05.</p>
     <p><b>Neutral sentment:</b> compound score greater than -0.05 and less than 0.05.</p>
     <p><b>Negative Sentiment:</b> compound score greater less than or equal to -0.05.</p>
-    <p>For more information about how a sentence is scored to classify it as either positive, negative, or neutral, go
+    <p>For more information about how a sentence is scored, go
       <a href="https://github.com/cjhutto/vaderSentiment#about-the-scoring" target="_blank">here</a>.</p>
   </div>
   {% endif %}
   {% if textblob_score %}
   <div class="col-md-6 mt-5">
     <p>Polarity lies in the range of -1 and 1. 1 means a positive statement. -1 means a negative statement.</p>
-    <p>For more information about how a sentence is scored to classify it as either positive, negative, or neutral, go
+    <p>For more information about how a sentence is scored, go
       <a href="https://textblob.readthedocs.io/en/dev/" target="_blank">here</a>.</p>
   </div>
   {% endif %}
@@ -198,10 +198,9 @@
   <div class="col-md-12">
     <h5>Naive Bayes</h5>
     <p>
-      The first model we tried to fit our training data to was Naive Bayes. To build this model, we again used TextBlob,
-      which provides built-in classifiers to create a custom classifier. One of those built-in classifiers is Naive
-      Bayes. Naive Bayes is an example of a generative classifier, which is a classifier that builds a model of how a
-      class could generate some input data. This type of classifier gives us the class most likely to have generated a
+      The first model we tried to fit our training data to was Naive Bayes. Naive Bayes is an example of a generative
+      classifier, which is a classifier that builds a model of how a class could generate some input data. This type of
+      classifier gives us the class most likely to have generated a
       particular observation.
     </p>
     <form action="/nb_classifier" method="POST">
@@ -288,8 +287,8 @@
   <div class="col-md-12">
     <h5>Decision Tree</h5>
     <p>
-      So, we just used Naive Bayes classifier to classify survey responses as positive or negative, but TextBlob also
-      offers Decision tree classifier, which is shown below.
+      So, we just used Naive Bayes classifier to classify survey responses as positive or negative. Now, let's look at
+      the Decision tree classifier, which is shown below.
     </p>
     <form action="/dt_classifier" method="POST">
       <div class="form-group mt-2">

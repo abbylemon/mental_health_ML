@@ -1,40 +1,114 @@
 {% extends 'layout.html' %} {% block body %}
 
-<h1 class="page-title">Machine Learning Model 2</h1>
+<h1 class="page-title">Machine Learning Model</h1>
 
+<h3 class="mt-5 header-title">Summary</h3>
+<p>
+  We wanted to use data from the OSMI surveys to find a machine learning model that could accurately classify whether an employee would seek mental health treatment based on different workplace characteristics.
+</p>
+<p>
+  We chose “sought_treatment_for_mental_health” as our target variable.
+</p>
+<p>
+  For our feature variables, we chose variables that an employer would have the most control over. 
+  The variables we decided to use in our model are “number_ employees”, “is_tech_company”, 
+  “employer_provides_mental_health_benefits”, “employer_offers_resources”, “employer_formally_discussed_mental_health”, 
+  “is_anonymity_protected_by_employer”, and “experience_supportive_response”.
+</p>
+<h3 class="mt-5 header-title">Testing Models</h3>
+<p>
+  To find the model that most accurately predicted our variable, we tested our data in four different models to find the highest test score.
+</p>
+<p>
+  After loading the data and selecting the feature and target variables, we split the data into a training set and test set. We fit each model with the training set and performed predictions on the test set. 
+  We got the following test scores.
+</p>
+<div class="col-md-6">
+  <table class="table table-dark">
+    <thead>
+      <tr class="table-header-row">
+        <th class="table-head">Model</th>
+        <th class="table-head">Test Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Decision Tree</td>
+        <td>0.7834</td>
+      </tr>
+      <tr>
+        <td>Random Forests</td>
+        <td>0.7897</td>
+      </tr>
+      <tr>
+        <td>K-Nearest Neighbors</td>
+        <td>0.8084 (k=15)</td>
+      </tr>
+      <tr>
+        <td>Logistic Regression</td>
+        <td>0.8224</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<h3 class="mt-5 header-title">Results</h3>
+<p>
+  After reviewing the test scores from the four models, we chose to use a logistic regression model because it had the highest test score for the data. 
+  We, then, evaluated our model by calculating the Confusion Matrix and model evaluation metrics.
+  The Confusion Matrix and model evaluation metrics (accuracy, precision, recall, and ROC curve) tell us about the model's effectiveness and performance.
+</p>
 <div class="row">
-  <div class="col-md-12" id="summary-text">
-    <h3>Summary</h3>
-    <p class="main">A machine learning model to predict interactions between demographics and mental health coverage.
-    </p>
-    <h3>Model Description</h3>
-    <p class="main">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac ex et tortor sollicitudin egestas. Cras vel ante
-      interdum,
-      commodo massa ut, commodo lectus. Aenean aliquam metus nisl, eu pretium justo accumsan nec. Morbi sodales aliquam
-      felis,
-      eget elementum dui porta vitae. Suspendisse id ultricies arcu. Donec semper neque at dui ornare imperdiet. Morbi
-      eu augue
-      nisl. Nulla facilisi. Etiam sagittis egestas sagittis. Maecenas sagittis molestie varius. Aenean rutrum sapien eu
-      ultrices
-      venenatis. Proin in est porta, dignissim massa ut, maximus purus. Integer vehicula diam id orci tempus, eu
-      ultricies dolor
-      feugiat. Cras dictum libero ac ante dictum, vitae cursus mi consequat.
-    </p>
-    <h3>Results</h3>
-    <p class="main">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac ex et tortor sollicitudin egestas. Cras vel ante
-      interdum,
-      commodo massa ut, commodo lectus. Aenean aliquam metus nisl, eu pretium justo accumsan nec. Morbi sodales aliquam
-      felis,
-      eget elementum dui porta vitae. Suspendisse id ultricies arcu. Donec semper neque at dui ornare imperdiet. Morbi
-      eu augue
-      nisl. Nulla facilisi. Etiam sagittis egestas sagittis. Maecenas sagittis molestie varius. Aenean rutrum sapien eu
-      ultrices
-      venenatis. Proin in est porta, dignissim massa ut, maximus purus. Integer vehicula diam id orci tempus, eu
-      ultricies dolor
-      feugiat. Cras dictum libero ac ante dictum, vitae cursus mi consequat.
-    </p>
+  <div class="col-md-7">
+    <img src="../static/images/cfn_matrix.jpg" style="width:100%" />
+  </div>
+  <div class="col-md-4">
+    <h5>Model Evaluation Metrics</h5>
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Metric</th>
+          <th class="table-head">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Accuracy</td>
+          <td>0.8224</td>
+        </tr>
+        <tr>
+          <td>Precision</td>
+          <td>0.8582</td>
+        </tr>
+        <tr>
+          <td>Recall</td>
+          <td>0.9344</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+<div class="row mt-5">
+  <div class="col-md-4">
+    <p>
+      Figure 1 displays the Receiver Operating Characteristic (ROC) curve. The ROC tells us the diagnostic ability 
+      of our model by graphing the true positive rate (TPR) against the false positive rate (FPR).  
+      The baseline for the ROC curve is where TPR = FPR; in other words, the baseline is a 
+      non-diagnostic model. The closer the curve is to the top-left corner of the graph indicates 
+      a better performance of classification.
+    </p>
+    <p>
+      The Area under Curve (AUC) score summarizes the overall predictive accuracy of the model. 
+      The AUC score tells us how capable the model is at distinguishing between classes. An AUC 
+      score of 1.0 represents a perfect classifier. Our model had an AUC score of 0.8697 which 
+      means that there is roughly an 87% chance the model will be able to distinguish between employees 
+      who sought mental health treatment and those that did not.
+    </p>
+  </div>
+  <div class="col-md-8">
+    <img src="../static/images/roccurve.jpg" style="width: 100%" />
+  </div>
+</div>
+
+
+
 {% endblock %}

@@ -7,16 +7,20 @@
 .github-side-icon {
   position: absolute;
   z-index: 3;
-  top: 100px;
+  top: 70px;
   right: 35px;
   cursor: pointer;
   color: var(--accent-color);
 }
 
+.github-side-icon:hover, .team-side-icon:hover {
+  color: #fff;
+}
+
 .team-side-icon {
   position: absolute;
   z-index: 3;
-  top: 180px;
+  top: 140px;
   right: 35px;
   cursor: pointer;
   color: var(--accent-color);

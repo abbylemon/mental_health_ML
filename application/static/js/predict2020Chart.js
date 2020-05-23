@@ -5,9 +5,9 @@ const svgHeightPredict = 660;
 // Define the chart's margins as an object
 const chartMarginPredict = {
   top: 30,
-  right: 30,
-  bottom: 30,
-  left: 30
+  right: 50,
+  bottom: 80,
+  left: 50
 }; 
 
 // Define dimensions of the chart area
@@ -71,10 +71,27 @@ d3.csv("/static/predictChartData.csv")
         .classed("bar", true)
         .attr("x", d => xScale(d.Year))
         .attr("y", d => yScale(d.TruePrecent))
-        // .attr("width", d => xScale(d.Year))
         .attr("width", xScale.bandwidth())
         .attr("height", d => chartHeightPredict - yScale(d.TruePrecent));
 
+      // append y axis
+      chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - chartMarginPredict.left)
+        .attr("x", 0 - (svgHeightPredict / 2))
+        .attr("dy", "1em")
+        .style("fill", "white")
+        .classed("axis-text", true)
+        .text("True Responses (%)");
+
+      // append x axis
+      chartGroup.append("text")
+        .attr("transform", `translate(${chartWidthPredict / 2}, ${chartHeightPredict + 30})`)
+        .attr("y", 0)
+        .attr("x", 20)
+        .style("fill", "white")
+        .classed("axis-text", true)
+        .text("Year");
 
       // Step 1: Append tooltip div
       var toolTip = d3.select("#twenty20-predict-chart")

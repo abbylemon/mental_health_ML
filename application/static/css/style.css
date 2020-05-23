@@ -207,6 +207,16 @@ section p {
   /* display: none; */
 }
 
+.axis-text {
+  --accent-color: #d0d066;
+  --background-color: #333;
+  --fill: white;
+  --button-text-color: var(--background-color);
+  --transition-delay: 1s;
+  transition: var(--transition-delay);
+  background-color: var(--background-color);
+  color: var(--fill);
+}
 
 .bold {
   font-weight: bold;

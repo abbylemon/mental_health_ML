@@ -1,6 +1,6 @@
 config.py
 .ipynb_checkpoints
-*.csv
+# *.csv
 .DS_Store
 *.tgz
 *.tgz.1

@@ -68,19 +68,23 @@ d3.json(sentiment_results_url).then(function (data) {
   // set x to the bottom of the chart
   chartGroupVader.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
+    .style("font", "24px times")
     .call(xAxisVader);
 
   chartGroupTextblob.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
+    .style("font", "24px times")
     .call(xAxisVader);
 
   // set y to the y axis
   // This syntax allows us to call the axis function
   // and pass in the selector without breaking the chaining
   chartGroupVader.append("g")
+    .style("font", "20px times")
     .call(yAxisVader);
 
   chartGroupTextblob.append("g")
+    .style("font", "20px times")
     .call(yAxisTextblob);
 
   // Append Data to chartGroup
@@ -92,7 +96,8 @@ d3.json(sentiment_results_url).then(function (data) {
     .attr("x", (d, i) => xScaleVader(dataCategories[i]))
     .attr("y", d => yScaleVader(d))
     .attr("width", xScaleVader.bandwidth())
-    .attr("height", d => chartHeight - yScaleVader(d));
+    .attr("height", d => chartHeight - yScaleVader(d))
+    .attr("fill", 'lightpink');
 
   // Append Data to chartGroup
   chartGroupTextblob.selectAll(".bar")
@@ -103,7 +108,8 @@ d3.json(sentiment_results_url).then(function (data) {
     .attr("x", (d, i) => xScaleTextblob(dataCategories[i]))
     .attr("y", d => yScaleTextblob(d))
     .attr("width", xScaleTextblob.bandwidth())
-    .attr("height", d => chartHeight - yScaleTextblob(d));
+    .attr("height", d => chartHeight - yScaleTextblob(d))
+    .attr("fill", 'lightpink');
 
 }).catch(function (error) {
   console.log(error);

@@ -68,7 +68,7 @@ All of the ETL, data analysis, machine learning, natural language processing, an
 |  [schema.ipynb](./schema.ipynb) | This notebook defines the schema and tables for the database using Python SQLAlchemy classes. |
 | natural_language_processsing.ipynb | This notebook includes all of the natural language processing analysis work done for this project, including sentiment analysis and building text classification models. |
 | ml_model.ipynb | This notebook includes the code used to build the machine learning models used to classify whether an employee would be willing to seeek mental health treatment. |
-| predict_2020.ipynb | This notebook includes the code used to help predict the results of the 2020 OSMI Mental Health in Tech Survey |
+| [predict_2020.ipynb](predict_2020.ipynb) | This notebook includes the code used to help predict the results of the 2020 OSMI Mental Health in Tech Survey |
 
 ## <a name="getting_started"></a>Getting Started
 

@@ -112,6 +112,11 @@ def visualizations_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("visualizations.html", data=data)
 
+@app.route(f"/research")
+def research_page():
+    data = {'api_base_url': f'{api_base_url}{api_version}'}
+    return render_template("research.html", data=data)
+
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
 swaggerui_blueprint = get_swaggerui_blueprint(

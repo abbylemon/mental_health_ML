@@ -313,9 +313,37 @@ def nb_classifier():
       nb_classifier_accuracy = 0.7253521126760564
       )
 
-  return jsonify({
-    "nb_classifier": example })
+dt_classifier_model_file = "./application/model/dt_classifier.pkl"
+dt_classifier_model= joblib.load(dt_classifier_model_file)
 
+@app.route("/dt_classifier", methods=['POST'])
+@cross_origin()
+def dt_classifier():
+
+  if request.method == 'POST':
+    dt_classifier_text = request.form['dt_classifier_text']
+    if dt_classifier_text == '':
+      return render_template(
+        'nlp.html',
+        nb_classifier_message='Need to enter at least one word to perform machine learning classification.',
+        data = {'api_base_url': f'{api_base_url}{api_version}'}
+      )
+
+    classification = dt_classifier_model.classify(dt_classifier_text)
+
+    if classification == 'pos':
+      classification = 'Positive'
+    else:
+      classification = 'Negative'
+
+    redirect(url_for('nlp_page'), code=307)
+    return render_template(
+      'nlp.html',
+      data = {'api_base_url': f'{api_base_url}{api_version}'},
+      dt_classification = classification,
+      dt_classifier_text = dt_classifier_text,
+      dt_classifier_accuracy = 0.6549295774647887
+      )
 
 model_file = "./application/model/ml_model.pkl"
 with open(model_file, 'rb') as file:

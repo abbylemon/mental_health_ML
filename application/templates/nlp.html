@@ -1,11 +1,73 @@
 {% extends 'layout.html' %} {% block body %}
 
 <h1 class="page-title">Natural Language Processing</h1>
-<div class="row mt-5">
+
+<h3 class="mt-5 header-title">Problem</h3>
+<p>
+  One of the main challenges of working with an unstructured dataset is many of the
+  survey questions were open ended questions. That is, many of the questions did not fall into an easy yes/no or
+  true/false category. Not only does this make performing any machine learning classification on these questions
+  difficult, but this made
+  manually cleaning the data time consuming and almost impossible. Having defined a schema for the data and using a SQL
+  database like
+  Postgres helped make the data more structured but having to go through
+  each of the open ended questions one by
+  one and analyze what people wrote in their surveys is difficult and not a good use of someone's time. It would take
+  months and a lot of
+  people to analyze all the responses that came in from the survey. Also, manually going through this data would be
+  largely inaccurate as these conversations could easily be interpreted differently by different people.
+</p>
+<h3 class="mt-5 header-title">Solution</h3>
+<p>
+  So, for this project, we wanted to figure out a way to help better automate the processing of these open ended
+  questions by diving deeper into natural language processing and some of the different text analysis tools available
+  for classifying text. Also, being that OSMI is a small non-profit with limited resources, automating some of the open
+  responses that came back from the survey could potentialy help them discover insights into the data quicker from a
+  large, unstructured dataset and not have to rely on manually going through each response one by one.
+</p>
+<h3 class="mt-5 header-title">Mental Health Conversations with Employer</h3>
+<p>
+  As a proof of concept, we looked at analyzing the answers for the following survey question:
+</p>
+<h5 class="header-title bold mb-4">
+  "Describe the
+  conversation you had with
+  your employer about your mental health, including ther reactions and what actions were taken to address your mental
+  health."
+</h5>
+<p>
+  Specifically, for this question, we wanted to see if we could come up with a simple text classification model
+  that could accurately classify conversations employees had about mental health with their employer as either positive
+  or negative. The ultimate goal of this exercise is to identify and extract the opinions from the survey responses to
+  better understand the attitudes and emotions employees have towards mental health in the workplace and be able to
+  classify those attidues and emotions as either positive or negative.
+</p>
+</p>
+<h3 class="header-title mt-5">Sentiment Analysis</h3>
+<p>
+  To try to understand the meaning, context, and intent of what employees think about mental health in the workplace and
+  to efficiently come up with some insights for improving mental health conversations, we looked at a
+  couple of different sentiment analysis tools that would allow us to somewhat automate the work of analyzing the
+  polarity of the conversations and help us identify and classify the text.
+</p>
+<ul>
+  <li class="mt-3">
+    <b>VADER (Valence Aware Dictionary and sEntiment Reasoner)</b>. For more information, see the <a
+      href="https://github.com/cjhutto/vaderSentiment" target="_blank">GitHub</a>
+    page.
+  </li>
+  <li class="mt-3">
+    <b>TextBlob</b>. For more information, see the <a href="https://github.com/AdrianLC/TextBlob"
+      target="_blank">GitHub</a> page.
+  </li>
+</ul>
+<div class="row">
   <div class="col-md-12">
-    <h2 class="mt-3">Sentiment Analysis of Mental Health Conversations with Employer</h2>
+    <p class="mt-4">Use the form below to test out how these sentiment analysis tools work and how they calculate
+      scores to classify
+      text as positive or negtative</p>
     <form action="/nlp" method="POST">
-      <div class="form-group mt-5">
+      <div class="form-group mt-2">
         <h5>Select Library</h5>
         <select name="library">
           <option value="vader">VADER</option>
@@ -26,6 +88,13 @@
   </div>
 </div>
 <div class="row mt-5">
+  <div class="col-md-12">
+    {% if comments %}
+    <p class="bold">{{ comments | safe }}</p>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
   <div class="col-md-6">
     {% if vader_score %}
     <table class="table table-dark">
@@ -76,32 +145,206 @@
     <p><b>Positive sentiment:</b> compound score greater than or equal to 0.05.</p>
     <p><b>Neutral sentment:</b> compound score greater than -0.05 and less than 0.05.</p>
     <p><b>Negative Sentiment:</b> compound score greater less than or equal to -0.05.</p>
-    <p>For more information about how a sentence is scored to classify it as either positive, negative, or neutral, go
+    <p>For more information about how a sentence is scored, go
       <a href="https://github.com/cjhutto/vaderSentiment#about-the-scoring" target="_blank">here</a>.</p>
   </div>
   {% endif %}
   {% if textblob_score %}
   <div class="col-md-6 mt-5">
     <p>Polarity lies in the range of -1 and 1. 1 means a positive statement. -1 means a negative statement.</p>
+    <p>For more information about how a sentence is scored, go
+      <a href="https://textblob.readthedocs.io/en/dev/" target="_blank">here</a>.</p>
   </div>
   {% endif %}
 </div>
 <div class="row mt-5">
   <div class="col-md-12">
-    <h5>Distributon of Positive, Neutral, and Negative Conversations</h5>
+    <h5>Distributon of Positive and Negative Conversations Classified</h5>
+    <p>The following charts compare how the different sentiment analysis tools classified the various write-in responses
+      from the OSMI Mental Health in Tech Survey regarding conversations employees had with their employers. As you can
+      see, both tools came up with pretty similar results.
+      Although, VADER classified more responses as negative than did TextBlob.</p>
   </div>
 </div>
-<div class="row">
+<div class="row mb-5">
   <div class="col-md-6">
+    <h5>VADER</h5>
     <div id="vader-results-chart"></div>
   </div>
   <div class="col-md-6">
+    <h5>TextBlob</h5>
     <div id="textblob-results-chart"></div>
   </div>
 </div>
 <div class="row mt-5">
   <div class="col-md-12">
+    <h3 class="header-title">Text Classification Models</h3>
+    <p>After performing a sentiment analysis on the data, we looked at trying to build a few different text
+      classification models that could predict whether or not a conversation about mental health was positive or
+      negative.</p>
+    <p>
+      To try to classify the conversations from the survey, we looked at and compared the following classification
+      models.
+    </p>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-12">
+    <h5>Naive Bayes</h5>
+    <p>
+      The first model we tried to fit our training data to was Naive Bayes. Naive Bayes is an example of a generative
+      classifier, which is a classifier that builds a model of how a class could generate some input data. This type of
+      classifier gives us the class most likely to have generated a
+      particular observation.
+    </p>
+    <form action="/nb_classifier" method="POST">
+      <div class="form-group mt-2">
+        {% if nb_classifier_message %}
+        <p class="message">{{ nb_classifier_message | safe }}</p>
+        {% endif %}
+        <p>Describe the conversation you had with your employer about your mental health, including their reactions
+          and what actions were taken to address your mental health.</p>
+        <textarea class="form-control" name="nb_classifier_text" rows="3"></textarea>
+      </div>
+      <input type="submit" value="Run Model" class="btn btn-dark submit-btn btn-lg" />
+    </form>
+  </div>
+</div>
+
+<div class="row mt-3 mb-5">
+  {% if classification %}
+  <div class="col-md-12 mt-3">
+    <p>
+      <b>Text</b>: {{ nb_classifier_text | safe }}
+    </p>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ classification | safe }}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Model Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ nb_classifier_accuracy | safe }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Most Informative Features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">
+            <pre class="code">
+              Most Informative Features
+              contains(supportive) = True              pos : neg    =      9.9 : 1.0
+                    contains(sick) = True              neg : pos    =      8.3 : 1.0
+                  contains(suffer) = True              neg : pos    =      5.8 : 1.0
+                contains(brought) = True              neg : pos    =      5.8 : 1.0
+                      contains(an) = True              pos : neg    =      4.7 : 1.0
+                  contains(later) = True              neg : pos    =      4.5 : 1.0
+                contains(thought) = True              neg : pos    =      4.5 : 1.0
+                  contains(which) = True              neg : pos    =      4.5 : 1.0
+                      contains(No) = True              neg : pos    =      4.5 : 1.0
+                    contains(took) = True              neg : pos    =      4.2 : 1.0
+            </pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+
+<div class="row mt-5 mb-5">
+  <div class="col-md-12">
+    <h5>Decision Tree</h5>
+    <p>
+      So, we just used Naive Bayes classifier to classify survey responses as positive or negative. Now, let's look at
+      the Decision tree classifier, which is shown below.
+    </p>
+    <form action="/dt_classifier" method="POST">
+      <div class="form-group mt-2">
+        {% if dt_classifier_message %}
+        <p class="message">{{ dt_classifier_message | safe }}</p>
+        {% endif %}
+        <p>Describe the conversation you had with your employer about your mental health, including their reactions
+          and what actions were taken to address your mental health.</p>
+        <textarea class="form-control" name="dt_classifier_text" rows="3"></textarea>
+      </div>
+      <input type="submit" value="Run Model" class="btn btn-dark submit-btn btn-lg" />
+    </form>
+  </div>
+  {% if dt_classification %}
+  <div class="col-md-12 mt-3">
+    <p>
+      <b>Text</b>: {{ dt_classifier_text | safe }}
+    </p>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ dt_classification | safe }}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <table class="table table-dark">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-head">Model Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ dt_classifier_accuracy | safe }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+<div class="row mt-5 mb-5">
+  <div class="col-md-12">
     <h5>Word Cloud</h5>
+    <p>A word cloud is a good way to see the visual representation of text data. It displays a list of words where the
+      importance of each is shown with font size and color. The following word cloud was genereted using the Python <a
+        href="https://github.com/amueller/word_cloud" target="_blank">wordcloud</a> library by <a
+        href="https://github.com/amueller" target="_blank">Andreas Mueller</a>. This word cloud visually highlights
+      the
+      most common words used to describe the mental health conversations employees said they had with
+      their employers. The large the text size, the more such words were used. From this word cloud, we can quickly
+      see
+      the positive, negative, and neutral sentiments.</p>
     <img src="../static/images/conversations_word_cloud.png" style="width: 100%" />
   </div>
 </div>

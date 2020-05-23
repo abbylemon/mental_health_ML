@@ -4,6 +4,7 @@ from flask import (
     render_template,
     jsonify,
     request,
+    url_for,
     redirect)
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
@@ -15,6 +16,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 analyser = SentimentIntensityAnalyzer()
 from flask_swagger_ui import get_swaggerui_blueprint
 from textblob import TextBlob
+import pickle
+import pandas as pd
+import numpy as np
+import joblib
 
 try:
     from config import DB_USERNAME, DB_PASSWORD, DB_ENDPOINT
@@ -107,6 +112,11 @@ def visualizations_page():
     data = {'api_base_url': f'{api_base_url}{api_version}'}
     return render_template("visualizations.html", data=data)
 
+@app.route(f"/research")
+def research_page():
+    data = {'api_base_url': f'{api_base_url}{api_version}'}
+    return render_template("research.html", data=data)
+
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
 swaggerui_blueprint = get_swaggerui_blueprint(
@@ -183,7 +193,8 @@ def submit():
         'nlp.html',
         data = {'api_base_url': f'{api_base_url}{api_version}'},
         vader_score = vader_score,
-        textblob_score = None
+        textblob_score = None,
+        comments = comments
         )
 
     else:
@@ -193,7 +204,8 @@ def submit():
         'nlp.html',
         data = {'api_base_url': f'{api_base_url}{api_version}'},
         textblob_score = textblob_score,
-        vader_score = None
+        vader_score = None,
+        comments = comments
         )
 
 
@@ -274,6 +286,187 @@ def sentiment_scores():
       "number_neutral_textblob": number_neutral_textblob,
       "number_negative_textblob": number_negative_textblob })
 
+nb_classifier_model_file = "./application/model/nb_classifier.pkl"
+nb_classifier_model= joblib.load(nb_classifier_model_file)
+
+@app.route("/nb_classifier", methods=['POST'])
+@cross_origin()
+def nb_classifier():
+
+  if request.method == 'POST':
+    nb_classifier_text = request.form['nb_classifier_text']
+    if nb_classifier_text == '':
+      return render_template(
+        'nlp.html',
+        nb_classifier_message='Need to enter at least one word to perform machine learning classification.',
+        data = {'api_base_url': f'{api_base_url}{api_version}'}
+      )
+
+    classification = nb_classifier_model.classify(nb_classifier_text)
+
+    if classification == 'pos':
+      classification = 'Positive'
+    else:
+      classification = 'Negative'
+
+    redirect(url_for('nlp_page'), code=307)
+    return render_template(
+      'nlp.html',
+      data = {'api_base_url': f'{api_base_url}{api_version}'},
+      classification = classification,
+      nb_classifier_text = nb_classifier_text,
+      nb_classifier_accuracy = 0.7253521126760564
+      )
+
+dt_classifier_model_file = "./application/model/dt_classifier.pkl"
+dt_classifier_model= joblib.load(dt_classifier_model_file)
+
+@app.route("/dt_classifier", methods=['POST'])
+@cross_origin()
+def dt_classifier():
+
+  if request.method == 'POST':
+    dt_classifier_text = request.form['dt_classifier_text']
+    if dt_classifier_text == '':
+      return render_template(
+        'nlp.html',
+        nb_classifier_message='Need to enter at least one word to perform machine learning classification.',
+        data = {'api_base_url': f'{api_base_url}{api_version}'}
+      )
+
+    classification = dt_classifier_model.classify(dt_classifier_text)
+
+    if classification == 'pos':
+      classification = 'Positive'
+    else:
+      classification = 'Negative'
+
+    redirect(url_for('nlp_page'), code=307)
+    return render_template(
+      'nlp.html',
+      data = {'api_base_url': f'{api_base_url}{api_version}'},
+      dt_classification = classification,
+      dt_classifier_text = dt_classifier_text,
+      dt_classifier_accuracy = 0.6549295774647887
+      )
+
+model_file = "./application/model/ml_model.pkl"
+with open(model_file, 'rb') as file:
+  model = pickle.load(file)
+
+
+@app.route('/predict', methods=['GET', 'POST'])
+@cross_origin()
+def predict():
+  
+  if request.method == 'POST':
+    input_company = request.form['company']
+    input_employees = request.form['employees']
+    input_benefits = request.form['benefits']
+    input_resources = request.form['resources']
+    input_discussion = request.form['discussion']
+    input_anonymity = request.form['anonymity']
+    input_supporitve = request.form['supportive']
+    
+    if ((input_company=='') or (input_employees=='') or (input_benefits=='') or (input_resources=='') or (input_discussion=='') or (input_anonymity=='') or (input_supporitve=='')):
+      return render_template(
+        'predict.html',
+        form_message='Please answer the questions to run machine learning model',
+        data = {'api_base_url': f'{api_base_url}{api_version}'},
+        user_predict = None
+      )
+
+    if input_company == 'True':
+      resp_company = 1
+    elif input_company == "False":
+      resp_company = 0
+    else:
+      resp_company = []
+    
+    if input_employees == "1 to 5":
+      resp_employees = [0, 0, 0, 0, 0]
+    elif input_employees == "6 to 25":
+      resp_employees = [0, 0, 0, 1, 0]
+    elif input_employees == "26 to 100":
+      resp_employees = [0, 1, 0, 0, 0]
+    elif input_employees == "100 to 500":
+      resp_employees = [1, 0, 0, 0, 0]
+    elif input_employees == "500 to 1000":
+      resp_employees = [0, 0, 1, 0, 0]
+    elif input_employees == "More than 1000":
+      resp_employees = [0, 0, 0, 0, 1]
+    else:
+      resp_employees = []
+    
+    if input_benefits == "Yes":
+      resp_benefits = [0, 0, 1]
+    elif input_benefits == "No":
+      resp_benefits = [1, 0, 0]
+    elif input_benefits == "I'm not elibile for coverage/NA":
+      resp_benefits = [0, 1, 0]
+    elif input_benefits == "I don't know":
+      resp_benefits = [0, 0, 0]
+    else: 
+      resp_benefits = []
+    
+    if input_resources =="Yes":
+      resp_resources = [0, 1]
+    elif input_resources == "No":
+      resp_resources = [1, 0]
+    elif input_resources == "I don't know":
+      resp_resources = [0, 0]
+    else:
+      resp_resources = []
+    
+    if input_discussion =="Yes":
+      resp_discussion = [0, 1]
+    elif input_discussion == "No":
+      resp_discussion = [1, 0]
+    elif input_discussion == "I don't know":
+      resp_discussion = [0, 0]
+    else:
+      resp_discussion = []
+    
+    if input_anonymity =="Yes":
+      resp_anonymity = [0, 1]
+    elif input_anonymity == "No":
+      resp_anonymity = [1, 0]
+    elif input_anonymity == "I don't know":
+      resp_anonymity = [0, 0]
+    else:
+      resp_anonymity = []
+    
+    if input_supporitve =="I've always been self-employed":
+      resp_supportive = [0, 0, 0, 0]
+    elif input_supporitve == "No":
+      resp_supportive = [0, 1, 0, 0]
+    elif input_supporitve == "Maybe/Not Sure":
+      resp_supportive = [1, 0, 0, 0]
+    elif input_supporitve == "Yes, I observed":
+      resp_supportive = [0, 0, 0, 1]
+    elif input_supporitve == "Yes, I experienced":
+      resp_supportive = [0, 0, 1, 0]
+    else:
+      resp_supportive = []
+    
+    user_input = np.concatenate(([resp_company], resp_employees[:], resp_benefits[:], resp_resources[:], resp_discussion[:], resp_anonymity[:], resp_supportive[:]))
+
+    
+    
+    prediction = model.predict([user_input])
+  
+    return render_template(
+        'predict.html',
+        data = {'api_base_url': f'{api_base_url}{api_version}'},
+        user_predict = prediction,
+        user_company = input_company,
+        user_employees = input_employees,
+        user_benefits = input_benefits,
+        user_resources = input_resources,
+        user_discussion = input_discussion,
+        user_anonymity = input_anonymity,
+        user_supportive = input_supporitve
+        )
 
 if __name__ == "__main__":
     app.run()

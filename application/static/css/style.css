@@ -7,16 +7,20 @@
 .github-side-icon {
   position: absolute;
   z-index: 3;
-  top: 100px;
+  top: 70px;
   right: 35px;
   cursor: pointer;
   color: var(--accent-color);
 }
 
+.github-side-icon:hover, .team-side-icon:hover {
+  color: #fff;
+}
+
 .team-side-icon {
   position: absolute;
   z-index: 3;
-  top: 180px;
+  top: 140px;
   right: 35px;
   cursor: pointer;
   color: var(--accent-color);
@@ -100,7 +104,7 @@ body.light {
 }
 
 .social-link:hover {
-  color: var(--background-color)
+  color: var(--background-color) !important;
 }
 
 .nav-link {
@@ -157,7 +161,12 @@ section p {
 
 .submit-btn {
   background-color: var(--accent-color);
-  color: var(--background-color);
+  color: var(--background-color)
+}
+
+.link-btn {
+  background-color: var(--accent-color);
+  color: var(--background-color) !important;
 }
 
 .message {
@@ -207,4 +216,16 @@ section p {
   transition: var(--transition-delay);
   background-color: var(--background-color);
   color: var(--fill);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.classify-form-group {
+  padding-left: 0px !important;
+}
+
+.code {
+  color: #fff
 }
